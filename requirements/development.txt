@@ -1,0 +1,6 @@
+-r base.txt
+isort
+psycopg2
+django_debug_toolbar
+black
+flake8
