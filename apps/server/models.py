@@ -23,6 +23,9 @@ class Server(models.Model):
     description = models.CharField(max_length=300, null=True)
     member = models.ManyToManyField(User)
 
+    def __str__(self):
+        return self.name
+
 
 class Room(models.Model):
     name = models.CharField(max_length=100)
