@@ -21,7 +21,7 @@ class Server(models.Model):
         Category, on_delete=models.CASCADE, related_name="server_category"
     )
     description = models.CharField(max_length=300, null=True)
-    member = models.ManyToManyField(User)
+    members = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name
