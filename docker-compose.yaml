@@ -33,3 +33,6 @@ services:
       - ./.env
     depends_on:
       - db
+
+volumes:
+    pgdata:
