@@ -31,7 +31,9 @@ class Room(models.Model):
     name = models.CharField(max_length=100)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="room_owner")
     topic = models.CharField(max_length=100)
-    server = models.ForeignKey(Server, on_delete=models.CASCADE)
+    server = models.ForeignKey(
+        Server, on_delete=models.CASCADE, related_name="room_server"
+    )
 
     def save(self, *args, **kwargs):
         self.name = self.name.lower()
