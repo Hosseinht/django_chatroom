@@ -8,7 +8,11 @@ from apps.server.serializers import ServerSerializer
 
 class ServerListAPIView(generics.ListAPIView):
     def get_queryset(self):
-        return Server.objects.all()
+        return (
+            Server.objects.all()
+            .select_related("category", "owner")
+            .prefetch_related("members", "room_server__owner")
+        )
 
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
