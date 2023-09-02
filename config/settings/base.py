@@ -43,6 +43,7 @@ LOCAL_APPS = [
 THIRD_PARTY_APPS = [
     "rest_framework",
     "django_filters",
+    "debug_toolbar",
     "corsheaders",
     "drf_spectacular",
 ]
@@ -59,6 +60,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -160,4 +162,9 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS
+}
+
+DEBUG_TOOLBAR_CONFIG = {
+    # display django debug toolbar in docker
+    "SHOW_TOOLBAR_CALLBACK": lambda request: True
 }

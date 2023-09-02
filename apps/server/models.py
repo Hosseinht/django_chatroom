@@ -20,17 +20,17 @@ class Server(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="server_category"
     )
-    description = models.CharField(max_length=300, null=True)
+    description = models.CharField(max_length=300, null=True, blank=True)
     members = models.ManyToManyField(User)
 
     def __str__(self):
-        return self.name
+        return f"{self.id} - {self.name} "
 
 
 class Room(models.Model):
     name = models.CharField(max_length=100)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="room_owner")
-    description = models.CharField(max_length=100)
+    topic = models.CharField(max_length=100)
     server = models.ForeignKey(Server, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
