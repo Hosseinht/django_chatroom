@@ -8,6 +8,7 @@ from .utils import (
     room_banner_upload_path,
     room_icon_upload_path,
 )
+from .validators import validate_icon_size, validate_image_file_type
 
 User = settings.AUTH_USER_MODEL
 
@@ -15,7 +16,12 @@ User = settings.AUTH_USER_MODEL
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
-    icon = models.FileField(upload_to=category_icon_upload_path, null=True, blank=True)
+    icon = models.FileField(
+        upload_to=category_icon_upload_path,
+        null=True,
+        blank=True,
+        validators=[validate_icon_size],
+    )
 
     def save(self, *args, **kwargs):
         """
@@ -61,8 +67,18 @@ class Room(models.Model):
     server = models.ForeignKey(
         Server, on_delete=models.CASCADE, related_name="room_server"
     )
-    banner = models.ImageField(upload_to=room_banner_upload_path, null=True, blank=True)
-    icon = models.ImageField(upload_to=room_icon_upload_path, null=True, blank=True)
+    banner = models.ImageField(
+        upload_to=room_banner_upload_path,
+        null=True,
+        blank=True,
+        validators=[validate_image_file_type],
+    )
+    icon = models.ImageField(
+        upload_to=room_icon_upload_path,
+        null=True,
+        blank=True,
+        validators=[validate_icon_size, validate_image_file_type],
+    )
 
     def save(self, *args, **kwargs):
         """

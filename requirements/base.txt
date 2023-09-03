@@ -6,4 +6,6 @@ Pillow
 django-cors-headers
 djangorestframework-simplejwt
 drf-spectacular
+filemagic
+python-magic
 
