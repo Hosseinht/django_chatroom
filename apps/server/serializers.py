@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.server.models import Server, Room
+from apps.server.models import Room, Server
 
 
 class RoomSerializer(serializers.ModelSerializer):

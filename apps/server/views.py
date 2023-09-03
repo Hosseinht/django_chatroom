@@ -1,6 +1,6 @@
 from django.db.models import Count
 from rest_framework import generics
-from rest_framework.exceptions import ValidationError, AuthenticationFailed
+from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from rest_framework.response import Response
 
 from apps.server.models import Server

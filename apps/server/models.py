@@ -3,7 +3,11 @@ from django.db import models
 from django.dispatch import receiver
 from django.shortcuts import get_object_or_404
 
-from .utils import category_icon_upload_path
+from .utils import (
+    category_icon_upload_path,
+    room_banner_upload_path,
+    room_icon_upload_path,
+)
 
 User = settings.AUTH_USER_MODEL
 
@@ -57,10 +61,29 @@ class Room(models.Model):
     server = models.ForeignKey(
         Server, on_delete=models.CASCADE, related_name="room_server"
     )
+    banner = models.ImageField(upload_to=room_banner_upload_path, null=True, blank=True)
+    icon = models.ImageField(upload_to=room_icon_upload_path, null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        self.name = self.name.lower()
+        """
+        Custom save method for updating and managing 'icon' files.
+        """
+        if self.id:
+            current_room = get_object_or_404(Room, id=self.id)
+            if current_room.icon != self.icon:
+                current_room.icon.delete(save=False)
+            if current_room.banner != self.banner:
+                current_room.banner.delete(save=False)
+
         super(Room, self).save(*args, **kwargs)
+
+    @receiver(models.signals.pre_delete, sender="server.Room")
+    def room_delete_files(sender, instance, **kwargs):
+        for field in instance._meta.fields:
+            if field.name == "icon" or field.name == "banner":
+                file = getattr(instance, field.name)
+                if file:
+                    file.delete(save=False)
 
     def __str__(self):
         return self.name
