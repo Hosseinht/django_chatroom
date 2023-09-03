@@ -4,10 +4,47 @@ from rest_framework.exceptions import ValidationError, AuthenticationFailed
 from rest_framework.response import Response
 
 from apps.server.models import Server
+from apps.server.schema import server_list_docs
 from apps.server.serializers import ServerSerializer
 
 
 class ServerListAPIView(generics.ListAPIView):
+    """
+    Provides a list of Server objects with various filtering options.
+
+    This view retrieves a list of Server objects from the database and allows filtering based on query parameters.
+
+    ---
+    # Query Parameters
+    - **category (str):** Filter servers by category name (case-insensitive).
+    - **qty (int):** Limit the number of results to the specified quantity.
+    - **by_user (bool):** Filter servers where the user is a member (True for filtering, False by default).
+    - **by_serverid (int):** Filter by a specific server's ID.
+    - **num_members (bool):** Annotate the results with the number of members in each server (True for annotation,
+        False by default).
+
+    # Raises
+    - **AuthenticationFailed:** If 'by_user' or 'by_serverid' is True and the user is not authenticated.
+    - **ValidationError:** If an invalid server ID is provided or if any other validation errors occur.
+
+    # Response
+    A JSON response containing a serialized list of Server objects.
+
+    Example Usage:
+    - To retrieve all servers in a specific category:
+        `/api/servers/?category=MyCategory`
+    - To retrieve the first 5 servers with member counts:
+        `/api/servers/?num_members=true&qty=5`
+    - To retrieve a server by its ID:
+        `/api/servers/?by_serverid=123`
+    - To filter servers where the requesting user is a member:
+        `/api/servers/?by_user=true`
+
+    Note:
+    - This view assumes that 'ServerSerializer' is appropriately configured for serializing Server objects.
+
+    """
+
     def get_queryset(self):
         return (
             Server.objects.all()
@@ -15,6 +52,7 @@ class ServerListAPIView(generics.ListAPIView):
             .prefetch_related("members", "room_server__owner")
         )
 
+    @server_list_docs
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         category = request.query_params.get("category")
@@ -23,6 +61,7 @@ class ServerListAPIView(generics.ListAPIView):
         by_serverid = request.query_params.get("by_serverid")
         num_members = request.query_params.get("num_members") == "true"
 
+        # If by_user or by_serverid is True and user is not authenticated then raise AuthenticationFailed error
         if by_user or by_serverid and not request.user.is_authenticated:
             raise AuthenticationFailed()
 
@@ -30,8 +69,8 @@ class ServerListAPIView(generics.ListAPIView):
             queryset = queryset.filter(category__name__iexact=category)
 
         if by_user:
-            # user_id = request.user.id
-            queryset = queryset.filter(members=by_user)
+            user_id = request.user.id
+            queryset = queryset.filter(members=user_id)
 
         if num_members:
             queryset = queryset.annotate(num_members=Count("members"))
@@ -49,5 +88,7 @@ class ServerListAPIView(generics.ListAPIView):
             except ValueError:
                 raise ValidationError(detail="Server value error")
 
-        serializer = ServerSerializer(queryset, many=True)
+        serializer = ServerSerializer(
+            queryset, many=True, context={"num_members": num_members}
+        )
         return Response(serializer.data)
