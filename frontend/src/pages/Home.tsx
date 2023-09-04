@@ -1,5 +1,4 @@
 import { Box, Grid } from "@chakra-ui/react";
-import Navbar from "../components/Navbar.tsx";
 
 const Home = () => {
   return (
@@ -19,10 +18,9 @@ const Home = () => {
       gap={4}
       padding={5}
     >
-      <Box gridArea="header">
-        <Navbar />
+      <Box gridArea="popular" border="1px" borderColor="gray.200">
+        Popular
       </Box>
-      <Box gridArea="popular">Popular</Box>
       <Box gridArea="explore">Explore</Box>
       <Box gridArea="main">Main</Box>
     </Grid>
