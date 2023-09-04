@@ -18,7 +18,7 @@ services:
 
   app:
     build: .
-    container_name: chatroom_app
+    container_name: chatroom_back
     command: sh -c "
       python manage.py migrate &&
       python manage.py runserver 0.0.0.0:8000
@@ -34,5 +34,17 @@ services:
     depends_on:
       - db
 
+  frontend:
+    build: ./frontend
+    container_name: chatroom_front
+    volumes:
+      - ./frontend:/app/frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - app
+    command: npm run dev
+
+
 volumes:
-    pgdata:
+  pgdata:
