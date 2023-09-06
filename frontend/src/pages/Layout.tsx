@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { Outlet } from "react-router";
-import Simple from "../components/Nav.tsx";
+import Simple from "../components/Navbar.tsx";
 
 const Layout = () => {
   return (

@@ -88,6 +88,7 @@ TEMPLATES = [
         },
     },
 ]
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
 
 WSGI_APPLICATION = "config.wsgi.application"
 
