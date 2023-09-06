@@ -1,11 +1,11 @@
-import Navbar from "../components/Navbar.tsx";
 import { Box } from "@chakra-ui/react";
 import { Outlet } from "react-router";
+import Simple from "../components/Nav.tsx";
 
 const Layout = () => {
   return (
     <>
-      <Navbar />
+      <Simple />
       <Box>
         <Outlet />
       </Box>
