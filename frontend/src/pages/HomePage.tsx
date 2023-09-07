@@ -1,5 +1,6 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import RoomGrid from "../components/RoomGrid.tsx";
+import ServerList from "../components/ServerList.tsx";
 
 const HomePage = () => {
   return (
@@ -20,8 +21,8 @@ const HomePage = () => {
       gap={2}
       // padding={2}
     >
-      <GridItem gridArea="popular" shadow="lg">
-        Popular
+      <GridItem gridArea="popular" shadow="lg" height="90vh">
+        <ServerList />
       </GridItem>
       <GridItem gridArea="explore" shadow="lg">
         Rooms

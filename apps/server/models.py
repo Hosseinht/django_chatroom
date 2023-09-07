@@ -77,16 +77,16 @@ class Server(models.Model):
         Custom save method for updating and managing 'icon' files.
         """
         if self.id:
-            current_room = get_object_or_404(Room, id=self.id)
+            current_room = get_object_or_404(Server, id=self.id)
             if current_room.icon != self.icon:
                 current_room.icon.delete(save=False)
             if current_room.banner != self.banner:
                 current_room.banner.delete(save=False)
 
-        super(Room, self).save(*args, **kwargs)
+        super(Server, self).save(*args, **kwargs)
 
-    @receiver(models.signals.pre_delete, sender="server.Room")
-    def room_delete_files(sender, instance, **kwargs):
+    @receiver(models.signals.pre_delete, sender="server.Server")
+    def server_delete_files(sender, instance, **kwargs):
         for field in instance._meta.fields:
             if field.name == "icon" or field.name == "banner":
                 file = getattr(instance, field.name)
