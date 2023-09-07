@@ -1,6 +1,7 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import RoomGrid from "../components/RoomGrid.tsx";
 import ServerList from "../components/ServerList.tsx";
+import CategoryList from "../components/CategoryList.tsx";
 
 const HomePage = () => {
   return (
@@ -25,7 +26,7 @@ const HomePage = () => {
         <ServerList />
       </GridItem>
       <GridItem gridArea="explore" shadow="lg">
-        Categories
+        <CategoryList />
       </GridItem>
       <GridItem gridArea="main" shadow="lg">
         <RoomGrid />
