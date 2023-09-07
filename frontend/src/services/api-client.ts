@@ -11,11 +11,9 @@ class APIClient<T> {
     this.endpoint = endpoint;
   }
 
-  getAllServers = () => {
+  getAll = () => {
     return axiosInstance.get<T>(this.endpoint).then((res) => res.data);
   };
-
-
 
   // get = (id: number | string) => {
   //     return axiosInstance

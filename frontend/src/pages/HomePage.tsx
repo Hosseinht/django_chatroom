@@ -25,7 +25,7 @@ const HomePage = () => {
         <ServerList />
       </GridItem>
       <GridItem gridArea="explore" shadow="lg">
-        Rooms
+        Categories
       </GridItem>
       <GridItem gridArea="main" shadow="lg">
         <RoomGrid />

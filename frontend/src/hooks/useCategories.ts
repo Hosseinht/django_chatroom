@@ -1,23 +1,20 @@
 import APIClient from "../services/api-client.ts";
 import ms from "ms";
 import { useQuery } from "@tanstack/react-query";
-
-export interface Server {
+export interface Category {
   id: number;
   name: string;
-  owner: string;
-  category: string;
   description: string;
-  room_server: [];
+  icon: string;
 }
 
-const apiClient = new APIClient<Server[]>("/server/select");
+const apiClient = new APIClient<Category[]>("/server/category");
 
-const useServers = () =>
+const useCategories = () =>
   useQuery({
-    queryKey: ["servers"],
+    queryKey: ["categories"],
     queryFn: apiClient.getAll,
     staleTime: ms("24h"),
   });
 
-export default useServers;
+export default useCategories;
