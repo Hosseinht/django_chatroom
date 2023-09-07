@@ -1,6 +1,17 @@
 from rest_framework import serializers
 
-from apps.server.models import Room, Server
+from apps.server.models import Room, Server, Category
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = [
+            "id",
+            "name",
+            "description",
+            "icon",
+        ]
 
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -8,7 +19,12 @@ class RoomSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Room
-        fields = ["id", "name", "owner", "topic"]
+        fields = [
+            "id",
+            "name",
+            "owner",
+            "topic",
+        ]
 
 
 class ServerSerializer(serializers.ModelSerializer):
@@ -38,6 +54,8 @@ class ServerSerializer(serializers.ModelSerializer):
             "owner",
             "category",
             "description",
+            "banner",
+            "icon",
             "room_server",
         ]
         read_only_fields = fields

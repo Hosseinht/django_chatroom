@@ -3,9 +3,14 @@ from rest_framework import generics
 from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from rest_framework.response import Response
 
-from apps.server.models import Server
+from apps.server.models import Server, Category
 from apps.server.schema import server_list_docs
-from apps.server.serializers import ServerSerializer
+from apps.server.serializers import ServerSerializer, CategorySerializer
+
+
+class CategoryListView(generics.ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
 
 
 class ServerListAPIView(generics.ListAPIView):

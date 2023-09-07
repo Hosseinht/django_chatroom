@@ -104,7 +104,6 @@ class Room(models.Model):
     server = models.ForeignKey(
         Server, on_delete=models.CASCADE, related_name="room_server"
     )
-    
 
     def __str__(self):
         return self.name
