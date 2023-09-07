@@ -44,6 +44,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+
 
 class Server(models.Model):
     name = models.CharField(max_length=100)
@@ -55,18 +59,6 @@ class Server(models.Model):
     )
     description = models.CharField(max_length=300, null=True, blank=True)
     members = models.ManyToManyField(User)
-
-    def __str__(self):
-        return f"{self.id} - {self.name} "
-
-
-class Room(models.Model):
-    name = models.CharField(max_length=100)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="room_owner")
-    topic = models.CharField(max_length=100)
-    server = models.ForeignKey(
-        Server, on_delete=models.CASCADE, related_name="room_server"
-    )
     banner = models.ImageField(
         upload_to=room_banner_upload_path,
         null=True,
@@ -100,6 +92,19 @@ class Room(models.Model):
                 file = getattr(instance, field.name)
                 if file:
                     file.delete(save=False)
+
+    def __str__(self):
+        return f"{self.id} - {self.name} "
+
+
+class Room(models.Model):
+    name = models.CharField(max_length=100)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="room_owner")
+    topic = models.CharField(max_length=100)
+    server = models.ForeignKey(
+        Server, on_delete=models.CASCADE, related_name="room_server"
+    )
+    
 
     def __str__(self):
         return self.name
