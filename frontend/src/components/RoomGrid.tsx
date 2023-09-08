@@ -2,9 +2,13 @@ import { Box, SimpleGrid, Spinner } from "@chakra-ui/react";
 import RoomCardContainer from "./RoomCardContainer.tsx";
 import RoomCard from "./RoomCard.tsx";
 import useServers from "../hooks/useServers.ts";
+import { ServerQuery } from "../pages/HomePage.tsx";
 
-const RoomGrid = () => {
-  const { data, error, isLoading } = useServers();
+interface Props {
+  serverQuery: ServerQuery;
+}
+const RoomGrid = ({ serverQuery }: Props) => {
+  const { data, error, isLoading } = useServers(serverQuery);
 
   if (error) return null;
   if (isLoading) return <Spinner />;

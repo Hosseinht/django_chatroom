@@ -2,8 +2,17 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import RoomGrid from "../components/RoomGrid.tsx";
 import ServerList from "../components/ServerList.tsx";
 import CategoryList from "../components/CategoryList.tsx";
+import { useState } from "react";
 
+export interface ServerQuery {
+  category?: string;
+  qty?: number;
+  by_serverid?: number;
+}
 const HomePage = () => {
+  const [serverQuery, setServerQuery] = useState<ServerQuery>(
+    {} as ServerQuery,
+  );
   return (
     <Grid
       gridTemplateColumns={{
@@ -23,13 +32,17 @@ const HomePage = () => {
       // padding={2}
     >
       <GridItem gridArea="popular" shadow="lg" height="90vh">
-        <ServerList />
+        <ServerList serverQuery={serverQuery} />
       </GridItem>
       <GridItem gridArea="explore" shadow="lg">
-        <CategoryList />
+        <CategoryList
+          onSelectCategory={(category) =>
+            setServerQuery({ ...serverQuery, category: category.name })
+          }
+        />
       </GridItem>
       <GridItem gridArea="main" shadow="lg">
-        <RoomGrid />
+        <RoomGrid serverQuery={serverQuery} />
       </GridItem>
     </Grid>
   );

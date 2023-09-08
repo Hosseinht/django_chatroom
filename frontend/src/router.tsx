@@ -1,12 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage.tsx";
 import Layout from "./pages/Layout.tsx";
+import RoomGrid from "./components/RoomGrid.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    children: [{ index: true, element: <HomePage /> }],
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: "server/category/:categoryName", element: <RoomGrid /> },
+    ],
   },
 ]);
 
