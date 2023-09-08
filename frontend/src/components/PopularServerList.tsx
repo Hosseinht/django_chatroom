@@ -1,12 +1,8 @@
-import useServers from "../hooks/useServers.ts";
 import { Avatar, Box, Heading, HStack, Spinner, Text } from "@chakra-ui/react";
-import { ServerQuery } from "../pages/HomePage.tsx";
+import usePopularServers from "../hooks/usePopularServers.ts";
 
-interface Props {
-  serverQuery: ServerQuery;
-}
-const ServerList = ({ serverQuery }: Props) => {
-  const { data, error, isLoading } = useServers(serverQuery);
+const PopularServerList = () => {
+  const { data, error, isLoading } = usePopularServers();
 
   if (error) return null;
   if (isLoading) return <Spinner />;
@@ -31,4 +27,4 @@ const ServerList = ({ serverQuery }: Props) => {
   );
 };
 
-export default ServerList;
+export default PopularServerList;

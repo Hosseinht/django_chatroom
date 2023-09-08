@@ -1,6 +1,6 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import RoomGrid from "../components/RoomGrid.tsx";
-import ServerList from "../components/ServerList.tsx";
+import PopularServerList from "../components/PopularServerList.tsx";
 import CategoryList from "../components/CategoryList.tsx";
 import { useState } from "react";
 
@@ -32,7 +32,7 @@ const HomePage = () => {
       // padding={2}
     >
       <GridItem gridArea="popular" shadow="lg" height="90vh">
-        <ServerList serverQuery={serverQuery} />
+        <PopularServerList serverQuery={serverQuery} />
       </GridItem>
       <GridItem gridArea="explore" shadow="lg">
         <CategoryList
