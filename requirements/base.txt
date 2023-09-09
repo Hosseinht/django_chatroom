@@ -8,4 +8,5 @@ djangorestframework-simplejwt
 drf-spectacular
 filemagic
 python-magic
-
+channels
+uvicorn[standard]

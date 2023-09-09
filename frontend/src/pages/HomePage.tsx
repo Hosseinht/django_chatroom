@@ -31,7 +31,7 @@ const HomePage = () => {
       gap={2}
       // padding={2}
     >
-      <GridItem gridArea="popular" shadow="lg" height="90vh">
+      <GridItem gridArea="popular" shadow="lg">
         <PopularServerList />
       </GridItem>
       <GridItem gridArea="explore" shadow="lg">
