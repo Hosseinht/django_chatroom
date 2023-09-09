@@ -8,7 +8,7 @@ const apiClient = new APIClient<Server[]>("/server/select");
 const usePopularServers = () =>
   useQuery({
     queryKey: ["popularServers"],
-    queryFn: apiClient.getAll,
+    queryFn: apiClient.getPopularServers,
     staleTime: ms("24h"),
   });
 

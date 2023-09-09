@@ -32,7 +32,7 @@ const HomePage = () => {
       // padding={2}
     >
       <GridItem gridArea="popular" shadow="lg" height="90vh">
-        <PopularServerList serverQuery={serverQuery} />
+        <PopularServerList />
       </GridItem>
       <GridItem gridArea="explore" shadow="lg">
         <CategoryList

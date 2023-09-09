@@ -1,4 +1,4 @@
-import { Card, CardBody, Heading, HStack, Text } from "@chakra-ui/react";
+import { Card, CardBody, HStack, Text } from "@chakra-ui/react";
 import { Server } from "../hooks/useServers.ts";
 
 interface Props {
@@ -12,9 +12,8 @@ const RoomCard = ({ server }: Props) => {
         <CardBody>
           <HStack justifyContent="space-between" marginBottom={3}>
             <Text>{server.id}</Text>
-            <Text>{server.name}</Text>
+            <Text>{server.category}</Text>
           </HStack>
-          <Heading fontSize="2xl">Heading</Heading>
         </CardBody>
       </Card>
     </>

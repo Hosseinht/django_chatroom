@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage.tsx";
 import Layout from "./pages/Layout.tsx";
-import RoomGrid from "./components/RoomGrid.tsx";
 
 const router = createBrowserRouter([
   {
@@ -9,7 +8,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "server/category/:categoryName", element: <RoomGrid /> },
+      // { path: "server/category/:categoryName", element: <RoomGrid /> },
     ],
   },
 ]);
