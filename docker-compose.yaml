@@ -21,7 +21,7 @@ services:
     container_name: chatroom_back
     command: sh -c "
       python manage.py migrate &&
-      python3 -m uvicorn config.asgi:django_application --host 0.0.0.0 --port 8000  --workers 4  --log-level debug --reload
+      python3 -m uvicorn config.asgi:application --host 0.0.0.0 --port 8000  --workers 4  --log-level debug --reload
       "
     volumes:
       - .:/app

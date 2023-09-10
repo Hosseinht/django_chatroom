@@ -5,6 +5,7 @@ from django.core.asgi import get_asgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
 
+
 django_application = get_asgi_application()
 
 from . import urls  # noqa isort:skip
@@ -14,8 +15,8 @@ application = ProtocolTypeRouter(
     # separate and redirect different types of protocol
     {
         "http": get_asgi_application(),
-        # "websocket": URLRouter(
-        #     urls.websocket_urlpatterns,
-        # ),
+        "websocket": URLRouter(
+            urls.websocket_urlpatterns,
+        ),
     }
 )

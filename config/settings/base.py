@@ -39,6 +39,7 @@ DEBUG = env.bool("DEBUG", False)
 LOCAL_APPS = [
     "apps.user",
     "apps.server",
+    "apps.webchat",
 ]
 
 THIRD_PARTY_APPS = [
