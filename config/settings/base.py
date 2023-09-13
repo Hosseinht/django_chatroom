@@ -95,6 +95,7 @@ CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -171,4 +172,13 @@ SPECTACULAR_SETTINGS = {
 DEBUG_TOOLBAR_CONFIG = {
     # display django debug toolbar in docker
     "SHOW_TOOLBAR_CALLBACK": lambda request: True
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis://redis:6379/2")],
+        },
+    },
 }

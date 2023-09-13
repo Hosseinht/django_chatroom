@@ -8,7 +8,7 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
-from apps.webchat.consumers import MyConsumer
+from apps.webchat.consumers import WebChatConsumer
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -28,7 +28,7 @@ urlpatterns = [
     ),
 ]
 
-websocket_urlpatterns = [path("ws/test/", MyConsumer.as_asgi())]
+websocket_urlpatterns = [path("ws/test/", WebChatConsumer.as_asgi())]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

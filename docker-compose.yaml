@@ -1,6 +1,12 @@
 version: "3.9"
 
 services:
+  redis:
+    image: redis:7
+    container_name: chatroom_redis
+    command: redis-server --save 60 1 --loglevel warning
+    ports:
+      - "6379:6379"
   db:
     image: postgres:13.8
     container_name: chatroom_db
