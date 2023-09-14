@@ -32,7 +32,7 @@ const HomePage = () => {
       // padding={2}
     >
       <GridItem gridArea="popular" shadow="lg">
-        <PopularServerList />
+        <PopularServerList onSelectServer={(server) =>setServerQuery({...serverQuery,server:server.name})}/>
       </GridItem>
       <GridItem gridArea="explore" shadow="lg">
         <CategoryList

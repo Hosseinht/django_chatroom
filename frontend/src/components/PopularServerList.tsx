@@ -1,7 +1,11 @@
 import { Avatar, Box, Heading, HStack, Spinner, Text } from "@chakra-ui/react";
 import usePopularServers from "../hooks/usePopularServers.ts";
+import {Server} from "../hooks/useServers.ts";
 
-const PopularServerList = () => {
+interface Props {
+    onSelectServer: (server: Server) => void;
+}
+const PopularServerList = ({onSelectServer}:Props) => {
   const { data, error, isLoading } = usePopularServers();
 
   if (error) return null;
@@ -16,7 +20,7 @@ const PopularServerList = () => {
         <HStack padding={2} key={server.id}>
           <Avatar>Icon</Avatar>
           <Box>
-            <Text fontWeight="bold">{server.name}</Text>
+            <Text fontWeight="bold" onClick={() => onSelectServer(server)}>{server.name}</Text>
             <Text as="span" color="gray.500" fontWeight="bold" fontSize="sm">
               {server.category}
             </Text>

@@ -1,16 +1,46 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from apps.server.models import Server, Category
 from apps.server.schema import server_list_docs
-from apps.server.serializers import ServerSerializer, CategorySerializer
+from apps.server.serializers import (
+    ServerDetailSerializer,
+    CategorySerializer,
+    ServerListSerializer,
+)
 
 
 class CategoryListView(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class ServerDetailAPIView(generics.RetrieveAPIView):
+    queryset = (
+        Server.objects.select_related("owner", "category")
+        .prefetch_related("members", "room_server__owner")
+        .all()
+    )
+    serializer_class = ServerDetailSerializer
+
+    # def get(self, request, *args, **kwargs):
+    #     try:
+    #         query = (
+    #             Server.objects.select_related("owner", "category")
+    #             .prefetch_related("members", "room_server__owner")
+    #             .get(id=kwargs["pk"])
+    #         )
+    #     except ObjectDoesNotExist:
+    #         return Response(
+    #             {"detail": "Page not found"},
+    #             status=status.HTTP_404_NOT_FOUND,
+    #         )
+    #     serializer = ServerSerializer(query)
+    #     return Response(serializer.data)
 
 
 class ServerListAPIView(generics.ListAPIView):
@@ -93,7 +123,7 @@ class ServerListAPIView(generics.ListAPIView):
             except ValueError:
                 raise ValidationError(detail="Server value error")
 
-        serializer = ServerSerializer(
+        serializer = ServerListSerializer(
             queryset, many=True, context={"num_members": num_members}
         )
         return Response(serializer.data)
