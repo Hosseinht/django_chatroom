@@ -18,7 +18,7 @@ const RoomGrid = ({ serverQuery }: Props) => {
       <Heading fontSize="2xl" justifyContent="center" textAlign="center">
         {serverQuery.category ? serverQuery.category : "Popular Servers"}
         {serverQuery.category && (
-          <Text as="h3" fontSize="md" color="gray.500">
+          <Text fontSize="md" color="gray.500">
             Channels talking about {serverQuery.category}
           </Text>
         )}

@@ -19,13 +19,13 @@ class CategoryListView(generics.ListAPIView):
     serializer_class = CategorySerializer
 
 
-class ServerDetailAPIView(generics.RetrieveAPIView):
-    queryset = (
-        Server.objects.select_related("owner", "category")
-        .prefetch_related("members", "room_server__owner")
-        .all()
-    )
-    serializer_class = ServerDetailSerializer
+# class ServerDetailAPIView(generics.RetrieveAPIView):
+#     queryset = (
+#         Server.objects.select_related("owner", "category")
+#         .prefetch_related("members", "room_server__owner")
+#         .all()
+#     )
+#     serializer_class = ServerDetailSerializer
 
     # def get(self, request, *args, **kwargs):
     #     try:
@@ -97,8 +97,8 @@ class ServerListAPIView(generics.ListAPIView):
         num_members = request.query_params.get("num_members") == "true"
 
         # If by_user or by_serverid is True and user is not authenticated then raise AuthenticationFailed error
-        if by_user or by_serverid and not request.user.is_authenticated:
-            raise AuthenticationFailed()
+#         if by_user or by_serverid and not request.user.is_authenticated:
+#             raise AuthenticationFailed()
 
         if category:
             queryset = queryset.filter(category__name__iexact=category)
@@ -123,7 +123,7 @@ class ServerListAPIView(generics.ListAPIView):
             except ValueError:
                 raise ValidationError(detail="Server value error")
 
-        serializer = ServerListSerializer(
+        serializer = ServerDetailSerializer(
             queryset, many=True, context={"num_members": num_members}
         )
         return Response(serializer.data)

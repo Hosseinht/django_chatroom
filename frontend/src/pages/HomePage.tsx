@@ -3,16 +3,18 @@ import RoomGrid from "../components/RoomGrid.tsx";
 import PopularServerList from "../components/PopularServerList.tsx";
 import CategoryList from "../components/CategoryList.tsx";
 import { useState } from "react";
+import ServerRoomList from "../components/ServerRoomList.tsx";
 
 export interface ServerQuery {
   category?: string;
   qty?: number;
-  by_serverid?: number;
+  byServerId?: number;
 }
 const HomePage = () => {
   const [serverQuery, setServerQuery] = useState<ServerQuery>(
     {} as ServerQuery,
   );
+
   return (
     <Grid
       gridTemplateColumns={{
@@ -32,14 +34,22 @@ const HomePage = () => {
       // padding={2}
     >
       <GridItem gridArea="popular" shadow="lg">
-        <PopularServerList onSelectServer={(server) =>setServerQuery({...serverQuery,server:server.name})}/>
-      </GridItem>
-      <GridItem gridArea="explore" shadow="lg">
-        <CategoryList
-          onSelectCategory={(category) =>
-            setServerQuery({ ...serverQuery, category: category.name })
+        <PopularServerList
+          onSelectServer={(id) =>
+            setServerQuery({ ...serverQuery, byServerId: id })
           }
         />
+      </GridItem>
+      <GridItem gridArea="explore" shadow="lg">
+        {serverQuery.byServerId ? (
+          <ServerRoomList serverQuery={serverQuery} />
+        ) : (
+          <CategoryList
+            onSelectCategory={(category) =>
+              setServerQuery({ ...serverQuery, category: category.name })
+            }
+          />
+        )}
       </GridItem>
       <GridItem gridArea="main" shadow="lg">
         <RoomGrid serverQuery={serverQuery} />

@@ -9,7 +9,7 @@ drf-spectacular
 filemagic
 python-magic
 channels
-uvicorn[watchgodreloader]
+uvicorn[standard]
 whitenoise
 redis
 django-redis

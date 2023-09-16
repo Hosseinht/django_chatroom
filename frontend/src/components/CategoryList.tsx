@@ -2,14 +2,11 @@ import { Box, Heading, HStack, Link, Spinner } from "@chakra-ui/react";
 import { MdOutlineSportsSoccer } from "react-icons/md";
 import { Icon } from "@chakra-ui/icons";
 import useCategories, { Category } from "../hooks/useCategories.ts";
-import { useParams } from "react-router";
 
 interface Props {
   onSelectCategory: (category: Category) => void;
 }
 const CategoryList = ({ onSelectCategory }: Props) => {
-  const categoryName = useParams();
-  console.log(categoryName);
   const { data, error, isLoading } = useCategories();
 
   if (error) return null;

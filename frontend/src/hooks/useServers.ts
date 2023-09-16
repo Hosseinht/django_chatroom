@@ -3,15 +3,7 @@ import ms from "ms";
 import { useQuery } from "@tanstack/react-query";
 import { ServerQuery } from "../pages/HomePage.tsx";
 import { AxiosRequestConfig } from "axios";
-
-export interface Server {
-  id: number;
-  name: string;
-  owner: string;
-  category: string;
-  description: string;
-  room_server: [];
-}
+import { Server } from "../entities/Server";
 
 const apiClient = new APIClient<Server[]>("/server/select");
 
@@ -22,6 +14,7 @@ const useServers = (serverQuery: ServerQuery) =>
       const config: AxiosRequestConfig = {
         params: {
           category: serverQuery?.category || "",
+          by_serverid: serverQuery?.byServerId || "",
         },
       };
       return apiClient.getAll(config);
