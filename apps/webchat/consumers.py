@@ -8,16 +8,19 @@ class WebChatConsumer(JsonWebsocketConsumer):
     # Initialize the consumer and set the default room name
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.room_name = "testserver"
+        self.room_id = None
+        self.user = None
 
     # Method called when a client connects to the WebSocket
     def connect(self):
         # Accept the WebSocket connection
         self.accept()
+        self.room_id = self.scope['url_route']['kwargs']['roomId']
+
 
         # Add the client to the specified room
         async_to_sync(self.channel_layer.group_add)(
-            self.room_name,
+            self.room_id,
             self.channel_name,
         )
 
@@ -26,7 +29,7 @@ class WebChatConsumer(JsonWebsocketConsumer):
         # Send the received message to all clients in the room
         async_to_sync(self.channel_layer.group_send)(
             # group_send: send messages to all channels in a particular group
-            self.room_name,
+            self.room_id,
             {
                 "type": "chat.message",
                 "new_message": content["message"],

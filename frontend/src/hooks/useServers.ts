@@ -14,7 +14,7 @@ const useServers = (serverQuery: ServerQuery) =>
       const config: AxiosRequestConfig = {
         params: {
           category: serverQuery?.category || "",
-          by_serverid: serverQuery?.byServerId || "",
+          by_serverid: serverQuery?.serverId || "",
         },
       };
       return apiClient.getAll(config);

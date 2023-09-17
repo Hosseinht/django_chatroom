@@ -2,6 +2,7 @@ import {
   Box,
   Heading,
   HStack,
+  Link,
   List,
   ListItem,
   Spinner,
@@ -11,9 +12,10 @@ import { ServerQuery } from "../pages/HomePage.tsx";
 
 interface Props {
   serverQuery: ServerQuery;
+  onSelectRoom: (id: number) => void;
 }
 
-const ServerRoomList = ({ serverQuery }: Props) => {
+const ServerRoomList = ({ serverQuery, onSelectRoom }: Props) => {
   const { data, error, isLoading } = useServers(serverQuery);
 
   if (error) return null;
@@ -29,7 +31,9 @@ const ServerRoomList = ({ serverQuery }: Props) => {
       <HStack padding={2}>
         <List>
           {serverRooms?.map((room) => (
-            <ListItem key={room.id}>{room.name}</ListItem>
+            <ListItem key={room.id}>
+              <Link onClick={() => onSelectRoom(room.id)}>{room.name}</Link>{" "}
+            </ListItem>
           ))}
         </List>
       </HStack>
