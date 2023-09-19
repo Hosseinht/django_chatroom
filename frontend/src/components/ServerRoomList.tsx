@@ -12,7 +12,7 @@ import { ServerQuery } from "../pages/HomePage.tsx";
 
 interface Props {
   serverQuery: ServerQuery;
-  onSelectRoom: (id: number) => void;
+  onSelectRoom: (id: number, name: string) => void;
 }
 
 const ServerRoomList = ({ serverQuery, onSelectRoom }: Props) => {
@@ -32,7 +32,9 @@ const ServerRoomList = ({ serverQuery, onSelectRoom }: Props) => {
         <List>
           {serverRooms?.map((room) => (
             <ListItem key={room.id}>
-              <Link onClick={() => onSelectRoom(room.id)}>{room.name}</Link>{" "}
+              <Link onClick={() => onSelectRoom(room.id, room.name)}>
+                {room.name}
+              </Link>{" "}
             </ListItem>
           ))}
         </List>

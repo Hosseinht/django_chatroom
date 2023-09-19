@@ -1,4 +1,4 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 import RoomGrid from "../components/RoomGrid.tsx";
 import PopularServerList from "../components/PopularServerList.tsx";
 import CategoryList from "../components/CategoryList.tsx";
@@ -10,43 +10,73 @@ export interface ServerQuery {
   category?: string;
   qty?: number;
   serverId: number;
-  roomId: number;
+  roomId?: number;
+  roomName: string;
 }
+
+const gridTemplateAreasWithMain1 = {
+  base: `'message'`,
+  md: `'header ' 'message'`,
+  lg: `'header header header' 'popular explore message'`,
+};
+
+const gridTemplateAreasWithMain2 = {
+  base: `'room'`,
+  md: `'header' 'room'`,
+  lg: `'header header header' 'popular explore room'`,
+};
 const HomePage = () => {
   const [serverQuery, setServerQuery] = useState<ServerQuery>(
     {} as ServerQuery,
   );
+  const gridTemplateAreas = serverQuery.roomId
+    ? gridTemplateAreasWithMain1
+    : gridTemplateAreasWithMain2;
 
   return (
     <Grid
       gridTemplateColumns={{
-        base: "1fr 1fr",
-        md: "1fr 1fr 2fr",
+        base: "100%",
+        md: "100%",
         lg: "250px 250px 1fr",
       }}
       gridTemplateRows={{
-        base: "40px 100px 200px 50px",
-        md: "40px 100px 200px 50px",
+        base: "700px",
+        md: "10px 700px ",
       }}
-      gridTemplateAreas={{
-        base: `'header header' 'popular explore ' 'main main'`,
-        md: `'header header header' 'popular explore main'`,
-      }}
+      gridTemplateAreas={gridTemplateAreas}
       gap={2}
       // padding={2}
     >
-      <GridItem gridArea="popular" shadow="lg">
+      <Box
+        gridArea="popular"
+        display={{ base: "none", md: "none", lg: "block" }}
+        shadow="lg"
+      >
         <PopularServerList
           onSelectServer={(id) =>
-            setServerQuery({ ...serverQuery, serverId: id })
+            setServerQuery({
+              ...serverQuery,
+              serverId: id,
+              category: undefined,
+              roomId: undefined,
+            })
           }
         />
-      </GridItem>
-      <GridItem gridArea="explore" shadow="lg">
+      </Box>
+      <Box
+        gridArea="explore"
+        display={{ base: "none", md: "none", lg: "block" }}
+        shadow="lg"
+      >
         {serverQuery.serverId ? (
           <ServerRoomList
-            onSelectRoom={(id) =>
-              setServerQuery({ ...serverQuery, roomId: id })
+            onSelectRoom={(id, name) =>
+              setServerQuery({
+                ...serverQuery,
+                roomId: id,
+                roomName: name,
+              })
             }
             serverQuery={serverQuery}
           />
@@ -57,17 +87,20 @@ const HomePage = () => {
             }
           />
         )}
-      </GridItem>
-      <GridItem gridArea="main" shadow="lg">
-        {serverQuery.roomId ? (
+      </Box>
+      {serverQuery.roomId ? (
+        <GridItem gridArea="message" shadow="lg">
           <Message
             roomId={serverQuery.roomId}
             serverId={serverQuery.serverId}
+            roomName={serverQuery.roomName}
           />
-        ) : (
+        </GridItem>
+      ) : (
+        <GridItem gridArea="room" shadow="lg">
           <RoomGrid serverQuery={serverQuery} />
-        )}
-      </GridItem>
+        </GridItem>
+      )}
     </Grid>
   );
 };

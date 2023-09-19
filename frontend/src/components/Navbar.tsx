@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Avatar,
   Box,
@@ -34,7 +35,7 @@ const Navbar = () => {
             }}
           />
           <HStack ms={4} spacing={8} alignItems={"center"}>
-            <Box>ChatRoom</Box>
+            <Link to="/">ChatRoom</Link>
           </HStack>
           <Flex alignItems={"center"}>
             <Menu>

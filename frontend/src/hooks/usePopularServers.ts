@@ -1,7 +1,7 @@
 import APIClient from "../services/api-client.ts";
 import ms from "ms";
 import { useQuery } from "@tanstack/react-query";
-import { Server } from "./useServers.ts";
+import { Server } from "../entities/Server.ts";
 
 const apiClient = new APIClient<Server[]>("/server/select");
 

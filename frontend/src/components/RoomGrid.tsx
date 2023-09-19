@@ -13,26 +13,41 @@ const RoomGrid = ({ serverQuery }: Props) => {
   if (error) return null;
   if (isLoading) return <Spinner />;
 
-  return (
-    <Box padding="10px">
-      <Heading fontSize="2xl" justifyContent="center" textAlign="center">
-        {serverQuery.category ? serverQuery.category : "Popular Servers"}
-        {serverQuery.category && (
-          <Text fontSize="md" color="gray.500">
-            Channels talking about {serverQuery.category}
-          </Text>
+  if (serverQuery.serverId) {
+    return (
+      <Box padding="10px">
+        {data && data.length > 0 && (
+          <Heading fontSize="2xl" justifyContent="center" textAlign="center">
+            Welcome to {data[0].name}
+            <Text fontSize="md" color="gray.500">
+              {data[0].description}
+            </Text>
+          </Heading>
         )}
-      </Heading>
+      </Box>
+    );
+  } else {
+    return (
+      <Box padding="10px">
+        <Heading fontSize="2xl" justifyContent="center" textAlign="center">
+          {serverQuery.category ? serverQuery.category : "Popular Servers"}
+          {serverQuery.category && (
+            <Text fontSize="md" color="gray.500">
+              Channels talking about {serverQuery.category}
+            </Text>
+          )}
+        </Heading>
 
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={6}>
-        {data?.map((server) => (
-          <RoomCardContainer key={server.id}>
-            <RoomCard server={server} />
-          </RoomCardContainer>
-        ))}
-      </SimpleGrid>
-    </Box>
-  );
+        <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={6}>
+          {data?.map((server) => (
+            <RoomCardContainer key={server.id}>
+              <RoomCard server={server} />
+            </RoomCardContainer>
+          ))}
+        </SimpleGrid>
+      </Box>
+    );
+  }
 };
 
 export default RoomGrid;

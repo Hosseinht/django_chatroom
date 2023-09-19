@@ -2,20 +2,22 @@ import useWebSocket from "react-use-websocket";
 import { useEffect, useState } from "react";
 import useRoomMessages from "../hooks/useRoomMessages.ts";
 import { MessageType } from "../entities/MessageType.ts";
-import { Spinner } from "@chakra-ui/react";
+import { Box, Flex, Heading, Spinner } from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/icons";
+import { BiDotsVerticalRounded } from "react-icons/bi";
 
 interface Props {
   roomId: number;
   serverId: number;
+  roomName: string;
 }
 
-const Message = ({ roomId, serverId }: Props) => {
+const Message = ({ roomId, serverId, roomName }: Props) => {
   const [newMessage, setNewMessage] = useState<MessageType[]>([]);
   const [message, setMessage] = useState("");
-  // console.log(newMessage);
+
   const { data, error, isLoading } = useRoomMessages(roomId);
-  // console.log(isLoading);
-  // console.log(newMessage);
+
   const socketUrl = roomId
     ? `ws://127.0.0.1:8000/${serverId}/${roomId}/`
     : null;
@@ -62,35 +64,43 @@ const Message = ({ roomId, serverId }: Props) => {
   if (isLoading) return <Spinner />;
 
   return (
-    <div>
-      {newMessage?.map((msg: MessageType, index: number) => {
-        return (
-          <div key={index}>
-            <p>{msg.sender}</p>
-            <p>{msg.content}</p>
-            <p>{msg.timestamp}</p>
-          </div>
-        );
-      })}
-      <form>
-        <label>
-          Enter Message:
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-        </label>
-      </form>
-      <button
-        onClick={() => {
-          sendJsonMessage({ type: "message", message });
-        }}
-      >
-        {/*It sends a JSON message to the server with a type of "message" and the message state as the content.*/}
-        Send Message
-      </button>
-    </div>
+    <>
+      <Flex alignItems={"center"} justifyContent="space-between" padding={2}>
+        <Heading as="h3" size="md">
+          {roomName}
+        </Heading>
+        <Icon display={{ lg: "none" }} boxSize={6} as={BiDotsVerticalRounded} />
+      </Flex>
+      <Box padding={2}>
+        {newMessage?.map((msg: MessageType, index: number) => {
+          return (
+            <div key={index}>
+              <p>{msg.sender}</p>
+              <p>{msg.content}</p>
+              <p>{msg.timestamp}</p>
+            </div>
+          );
+        })}
+        <form>
+          <label>
+            Enter Message:
+            <input
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+          </label>
+        </form>
+        <button
+          onClick={() => {
+            sendJsonMessage({ type: "message", message });
+          }}
+        >
+          {/*It sends a JSON message to the server with a type of "message" and the message state as the content.*/}
+          Send Message
+        </button>
+      </Box>
+    </>
   );
 };
 
