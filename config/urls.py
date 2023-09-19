@@ -13,6 +13,7 @@ from apps.webchat.consumers import WebChatConsumer
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/server/", include("apps.server.urls")),
+    path("api/messages/", include("apps.webchat.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
@@ -28,7 +29,9 @@ urlpatterns = [
     ),
 ]
 
-websocket_urlpatterns = [path("<str:serverId>/<str:roomId>/", WebChatConsumer.as_asgi())]
+websocket_urlpatterns = [
+    path("<str:serverId>/<str:roomId>/", WebChatConsumer.as_asgi())
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

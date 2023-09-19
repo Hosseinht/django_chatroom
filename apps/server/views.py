@@ -27,20 +27,20 @@ class CategoryListView(generics.ListAPIView):
 #     )
 #     serializer_class = ServerDetailSerializer
 
-    # def get(self, request, *args, **kwargs):
-    #     try:
-    #         query = (
-    #             Server.objects.select_related("owner", "category")
-    #             .prefetch_related("members", "room_server__owner")
-    #             .get(id=kwargs["pk"])
-    #         )
-    #     except ObjectDoesNotExist:
-    #         return Response(
-    #             {"detail": "Page not found"},
-    #             status=status.HTTP_404_NOT_FOUND,
-    #         )
-    #     serializer = ServerSerializer(query)
-    #     return Response(serializer.data)
+# def get(self, request, *args, **kwargs):
+#     try:
+#         query = (
+#             Server.objects.select_related("owner", "category")
+#             .prefetch_related("members", "room_server__owner")
+#             .get(id=kwargs["pk"])
+#         )
+#     except ObjectDoesNotExist:
+#         return Response(
+#             {"detail": "Page not found"},
+#             status=status.HTTP_404_NOT_FOUND,
+#         )
+#     serializer = ServerSerializer(query)
+#     return Response(serializer.data)
 
 
 class ServerListAPIView(generics.ListAPIView):
@@ -97,8 +97,8 @@ class ServerListAPIView(generics.ListAPIView):
         num_members = request.query_params.get("num_members") == "true"
 
         # If by_user or by_serverid is True and user is not authenticated then raise AuthenticationFailed error
-#         if by_user or by_serverid and not request.user.is_authenticated:
-#             raise AuthenticationFailed()
+        #         if by_user or by_serverid and not request.user.is_authenticated:
+        #             raise AuthenticationFailed()
 
         if category:
             queryset = queryset.filter(category__name__iexact=category)

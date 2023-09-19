@@ -1,6 +1,10 @@
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import JsonWebsocketConsumer
+from django.contrib.auth import get_user_model
 
+from .models import Conversation, Message
+
+User = get_user_model()
 
 # Define a WebSocket consumer class
 class WebChatConsumer(JsonWebsocketConsumer):
@@ -15,9 +19,10 @@ class WebChatConsumer(JsonWebsocketConsumer):
     def connect(self):
         # Accept the WebSocket connection
         self.accept()
-        self.room_id = self.scope['url_route']['kwargs']['roomId']
 
+        self.room_id = self.scope["url_route"]["kwargs"]["roomId"]
 
+        self.user = User.objects.get(id=1)
         # Add the client to the specified room
         async_to_sync(self.channel_layer.group_add)(
             self.room_id,
@@ -26,13 +31,30 @@ class WebChatConsumer(JsonWebsocketConsumer):
 
     # Method called when the consumer receives a JSON message from a client
     def receive_json(self, content, **kwargs):
+        room_id = self.room_id
+        sender = self.user
+        message = content["message"]
+
+        conversation, created = Conversation.objects.get_or_create(room_id=room_id)
+
+        new_message = Message.objects.create(
+            conversation=conversation,
+            sender=sender,
+            content=message,
+        )
+
         # Send the received message to all clients in the room
         async_to_sync(self.channel_layer.group_send)(
             # group_send: send messages to all channels in a particular group
             self.room_id,
             {
                 "type": "chat.message",
-                "new_message": content["message"],
+                "new_message": {
+                    "id": new_message.id,
+                    "sender": new_message.sender.username,
+                    "content": new_message.content,
+                    "timestamp": new_message.timestamp.isoformat(),
+                },
             },
         )
 
@@ -49,4 +71,4 @@ class WebChatConsumer(JsonWebsocketConsumer):
 
     # Method called when a client disconnects from the WebSocket
     def disconnect(self, close_code):
-        pass
+        async_to_sync(self.channel_layer.group_discard)(self.room_id, self.channel_name)

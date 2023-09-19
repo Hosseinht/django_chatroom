@@ -9,8 +9,8 @@ import Message from "../components/Message.tsx";
 export interface ServerQuery {
   category?: string;
   qty?: number;
-  serverId?: number;
-  roomId?: number;
+  serverId: number;
+  roomId: number;
 }
 const HomePage = () => {
   const [serverQuery, setServerQuery] = useState<ServerQuery>(
