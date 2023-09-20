@@ -94,6 +94,14 @@ const HomePage = () => {
             roomId={serverQuery.roomId}
             serverId={serverQuery.serverId}
             roomName={serverQuery.roomName}
+            onSelectRoom={(id, name) =>
+              setServerQuery({
+                ...serverQuery,
+                roomId: id,
+                roomName: name,
+              })
+            }
+            serverQuery={serverQuery}
           />
         </GridItem>
       ) : (

@@ -9,6 +9,9 @@ import {
   Flex,
   Heading,
   HStack,
+  Link,
+  List,
+  ListItem,
   Text,
   useDisclosure,
   VStack,
@@ -16,13 +19,28 @@ import {
 import { Icon } from "@chakra-ui/icons";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { MessageType } from "../../entities/MessageType.ts";
+import ServerRoomList from "../ServerRoomList.tsx";
+import { Room } from "../../entities/Room.ts";
+import { useState } from "react";
+import { ServerQuery } from "../../pages/HomePage.tsx";
+import useServers from "../../hooks/useServers.ts";
 
 interface Props {
   roomName: string;
   newMessage: MessageType[];
+  serverQuery: ServerQuery;
+  onSelectRoom: (id: number, name: string) => void;
 }
-const MessageBody = ({ roomName, newMessage }: Props) => {
+const MessageBody = ({
+  roomName,
+  newMessage,
+  serverQuery,
+  onSelectRoom,
+}: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data, error, isLoading } = useServers(serverQuery);
+
+  const serverRooms = data?.flatMap((server) => server.room_server);
   const formatDate = (timestamp: string) => {
     const date = new Date(timestamp);
     return date.toLocaleString(); // Format the date and time
@@ -45,11 +63,15 @@ const MessageBody = ({ roomName, newMessage }: Props) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerHeader borderBottomWidth="1px">Rooms</DrawerHeader>
-          <DrawerBody>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-          </DrawerBody>
+          <List>
+            {serverRooms?.map((room) => (
+              <ListItem key={room.id}>
+                <Link onClick={() => onSelectRoom(room.id, room.name)}>
+                  {room.name}
+                </Link>{" "}
+              </ListItem>
+            ))}
+          </List>
         </DrawerContent>
       </Drawer>
       <Box padding={2}>

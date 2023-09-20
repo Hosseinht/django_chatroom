@@ -5,14 +5,23 @@ import { MessageType } from "../../entities/MessageType.ts";
 import { Spinner } from "@chakra-ui/react";
 import MessageBody from "./MessageBody.tsx";
 import MessageForm from "./MessageForm.tsx";
+import { ServerQuery } from "../../pages/HomePage.tsx";
 
 interface Props {
   roomId: number;
   serverId: number;
   roomName: string;
+  serverQuery: ServerQuery;
+  onSelectRoom: (id: number, name: string) => void;
 }
 
-const Message = ({ roomId, serverId, roomName }: Props) => {
+const Message = ({
+  roomId,
+  serverId,
+  roomName,
+  serverQuery,
+  onSelectRoom,
+}: Props) => {
   const [newMessage, setNewMessage] = useState<MessageType[]>([]);
   const [message, setMessage] = useState("");
 
@@ -74,7 +83,12 @@ const Message = ({ roomId, serverId, roomName }: Props) => {
 
   return (
     <>
-      <MessageBody roomName={roomName} newMessage={newMessage} />
+      <MessageBody
+        roomName={roomName}
+        newMessage={newMessage}
+        serverQuery={serverQuery}
+        onSelectRoom={onSelectRoom}
+      />
       <MessageForm
         message={message}
         onChange={handleMessageChange}
