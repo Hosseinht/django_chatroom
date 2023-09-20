@@ -1,10 +1,10 @@
 import useWebSocket from "react-use-websocket";
-import { useEffect, useState } from "react";
-import useRoomMessages from "../hooks/useRoomMessages.ts";
-import { MessageType } from "../entities/MessageType.ts";
-import { Box, Flex, Heading, Spinner } from "@chakra-ui/react";
-import { Icon } from "@chakra-ui/icons";
-import { BiDotsVerticalRounded } from "react-icons/bi";
+import React, { useEffect, useState } from "react";
+import useRoomMessages from "../../hooks/useRoomMessages.ts";
+import { MessageType } from "../../entities/MessageType.ts";
+import { Spinner } from "@chakra-ui/react";
+import MessageBody from "./MessageBody.tsx";
+import MessageForm from "./MessageForm.tsx";
 
 interface Props {
   roomId: number;
@@ -60,46 +60,26 @@ const Message = ({ roomId, serverId, roomName }: Props) => {
     }
   }, [data, isLoading]);
 
+  const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setMessage(e.target.value);
+  };
+
+  const handleSendMessage = () => {
+    sendJsonMessage({ type: "message", message });
+  };
+
   if (error) return null;
   if (isLoading) return <Spinner />;
 
   return (
     <>
-      <Flex alignItems={"center"} justifyContent="space-between" padding={2}>
-        <Heading as="h3" size="md">
-          {roomName}
-        </Heading>
-        <Icon display={{ lg: "none" }} boxSize={6} as={BiDotsVerticalRounded} />
-      </Flex>
-      <Box padding={2}>
-        {newMessage?.map((msg: MessageType, index: number) => {
-          return (
-            <div key={index}>
-              <p>{msg.sender}</p>
-              <p>{msg.content}</p>
-              <p>{msg.timestamp}</p>
-            </div>
-          );
-        })}
-        <form>
-          <label>
-            Enter Message:
-            <input
-              type="text"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-          </label>
-        </form>
-        <button
-          onClick={() => {
-            sendJsonMessage({ type: "message", message });
-          }}
-        >
-          {/*It sends a JSON message to the server with a type of "message" and the message state as the content.*/}
-          Send Message
-        </button>
-      </Box>
+      <MessageBody roomName={roomName} newMessage={newMessage} />
+      <MessageForm
+        message={message}
+        onChange={handleMessageChange}
+        onSend={handleSendMessage}
+      />
     </>
   );
 };

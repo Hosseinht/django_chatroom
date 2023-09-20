@@ -4,7 +4,7 @@ import PopularServerList from "../components/PopularServerList.tsx";
 import CategoryList from "../components/CategoryList.tsx";
 import { useState } from "react";
 import ServerRoomList from "../components/ServerRoomList.tsx";
-import Message from "../components/Message.tsx";
+import Message from "../components/Message/Message.tsx";
 
 export interface ServerQuery {
   category?: string;
