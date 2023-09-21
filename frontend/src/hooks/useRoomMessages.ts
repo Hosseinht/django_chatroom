@@ -3,10 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import { MessageType } from "../entities/MessageType.ts";
 import { AxiosRequestConfig } from "axios";
 import ms from "ms";
+import useServerQueryStore from "../store.ts";
 
 const apiClient = new APIClient<MessageType[]>("/messages");
-const useRoomMessages = (roomId: number) =>
-  useQuery({
+const useRoomMessages = () => {
+  const roomId = useServerQueryStore((s) => s.serverQuery.roomId);
+  return useQuery({
     queryKey: ["serverRooms", roomId],
     queryFn: () => {
       const config: AxiosRequestConfig = {
@@ -18,5 +20,6 @@ const useRoomMessages = (roomId: number) =>
     },
     staleTime: ms("24h"),
   });
+};
 
 export default useRoomMessages;

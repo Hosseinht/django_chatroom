@@ -2,17 +2,9 @@ import { Box, Grid, GridItem } from "@chakra-ui/react";
 import RoomGrid from "../components/RoomGrid.tsx";
 import PopularServerList from "../components/PopularServerList.tsx";
 import CategoryList from "../components/CategoryList.tsx";
-import { useState } from "react";
 import ServerRoomList from "../components/ServerRoomList.tsx";
 import Message from "../components/Message/Message.tsx";
-
-export interface ServerQuery {
-  category?: string;
-  qty?: number;
-  serverId: number;
-  roomId?: number;
-  roomName: string;
-}
+import useServerQueryStore from "../store.ts";
 
 const gridTemplateAreasWithMain1 = {
   base: `'message'`,
@@ -26,10 +18,10 @@ const gridTemplateAreasWithMain2 = {
   lg: `'header header header' 'popular explore room'`,
 };
 const HomePage = () => {
-  const [serverQuery, setServerQuery] = useState<ServerQuery>(
-    {} as ServerQuery,
-  );
-  const gridTemplateAreas = serverQuery.roomId
+  const selectedServerId = useServerQueryStore((s) => s.serverQuery.serverId);
+  const selectedRoomId = useServerQueryStore((s) => s.serverQuery.roomId);
+
+  const gridTemplateAreas = selectedRoomId
     ? gridTemplateAreasWithMain1
     : gridTemplateAreasWithMain2;
 
@@ -53,60 +45,22 @@ const HomePage = () => {
         display={{ base: "none", md: "none", lg: "block" }}
         shadow="lg"
       >
-        <PopularServerList
-          onSelectServer={(id) =>
-            setServerQuery({
-              ...serverQuery,
-              serverId: id,
-              category: undefined,
-              roomId: undefined,
-            })
-          }
-        />
+        <PopularServerList />
       </Box>
       <Box
         gridArea="explore"
         display={{ base: "none", md: "none", lg: "block" }}
         shadow="lg"
       >
-        {serverQuery.serverId ? (
-          <ServerRoomList
-            onSelectRoom={(id, name) =>
-              setServerQuery({
-                ...serverQuery,
-                roomId: id,
-                roomName: name,
-              })
-            }
-            serverQuery={serverQuery}
-          />
-        ) : (
-          <CategoryList
-            onSelectCategory={(category) =>
-              setServerQuery({ ...serverQuery, category: category.name })
-            }
-          />
-        )}
+        {selectedServerId ? <ServerRoomList /> : <CategoryList />}
       </Box>
-      {serverQuery.roomId ? (
+      {selectedRoomId ? (
         <GridItem gridArea="message" shadow="lg">
-          <Message
-            roomId={serverQuery.roomId}
-            serverId={serverQuery.serverId}
-            roomName={serverQuery.roomName}
-            onSelectRoom={(id, name) =>
-              setServerQuery({
-                ...serverQuery,
-                roomId: id,
-                roomName: name,
-              })
-            }
-            serverQuery={serverQuery}
-          />
+          <Message />
         </GridItem>
       ) : (
         <GridItem gridArea="room" shadow="lg">
-          <RoomGrid serverQuery={serverQuery} />
+          <RoomGrid />
         </GridItem>
       )}
     </Grid>

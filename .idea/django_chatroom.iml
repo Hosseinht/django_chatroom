@@ -18,7 +18,9 @@
       <excludeFolder url="file://$MODULE_DIR$/frontend/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/pgdata" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/frontend/node_modules" />
     </content>
+    <content url="file://$MODULE_DIR$/frontend/node_modules" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

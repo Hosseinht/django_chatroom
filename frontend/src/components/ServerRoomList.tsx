@@ -8,15 +8,11 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import useServers from "../hooks/useServers.ts";
-import { ServerQuery } from "../pages/HomePage.tsx";
+import useServerQueryStore from "../store.ts";
 
-interface Props {
-  serverQuery: ServerQuery;
-  onSelectRoom: (id: number, name: string) => void;
-}
-
-const ServerRoomList = ({ serverQuery, onSelectRoom }: Props) => {
-  const { data, error, isLoading } = useServers(serverQuery);
+const ServerRoomList = () => {
+  const { data, error, isLoading } = useServers();
+  const setRoom = useServerQueryStore((s) => s.setRoom);
 
   if (error) return null;
   if (isLoading) return <Spinner />;
@@ -32,7 +28,7 @@ const ServerRoomList = ({ serverQuery, onSelectRoom }: Props) => {
         <List>
           {serverRooms?.map((room) => (
             <ListItem key={room.id}>
-              <Link onClick={() => onSelectRoom(room.id, room.name)}>
+              <Link onClick={() => setRoom(room.id, room.name)}>
                 {room.name}
               </Link>{" "}
             </ListItem>

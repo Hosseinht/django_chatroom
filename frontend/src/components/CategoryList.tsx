@@ -1,13 +1,12 @@
 import { Box, Heading, HStack, Link, Spinner } from "@chakra-ui/react";
 import { MdOutlineSportsSoccer } from "react-icons/md";
 import { Icon } from "@chakra-ui/icons";
-import useCategories, { Category } from "../hooks/useCategories.ts";
+import useCategories from "../hooks/useCategories.ts";
+import useServerQueryStore from "../store.ts";
 
-interface Props {
-  onSelectCategory: (category: Category) => void;
-}
-const CategoryList = ({ onSelectCategory }: Props) => {
+const CategoryList = () => {
   const { data, error, isLoading } = useCategories();
+  const setCategory = useServerQueryStore((s) => s.setCategory);
 
   if (error) return null;
   if (isLoading) return <Spinner />;
@@ -21,7 +20,7 @@ const CategoryList = ({ onSelectCategory }: Props) => {
         <HStack padding={2} key={category.id}>
           <Icon as={MdOutlineSportsSoccer} />
 
-          <Link onClick={() => onSelectCategory(category)} fontWeight="bold">
+          <Link onClick={() => setCategory(category.name)} fontWeight="bold">
             {category.name}
           </Link>
         </HStack>

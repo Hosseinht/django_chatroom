@@ -5,27 +5,16 @@ import { MessageType } from "../../entities/MessageType.ts";
 import { Spinner } from "@chakra-ui/react";
 import MessageBody from "./MessageBody.tsx";
 import MessageForm from "./MessageForm.tsx";
-import { ServerQuery } from "../../pages/HomePage.tsx";
+import useServerQueryStore from "../../store.ts";
 
-interface Props {
-  roomId: number;
-  serverId: number;
-  roomName: string;
-  serverQuery: ServerQuery;
-  onSelectRoom: (id: number, name: string) => void;
-}
-
-const Message = ({
-  roomId,
-  serverId,
-  roomName,
-  serverQuery,
-  onSelectRoom,
-}: Props) => {
+const Message = () => {
   const [newMessage, setNewMessage] = useState<MessageType[]>([]);
   const [message, setMessage] = useState("");
 
-  const { data, error, isLoading } = useRoomMessages(roomId);
+  const roomId = useServerQueryStore((s) => s.serverQuery.roomId);
+  const serverId = useServerQueryStore((s) => s.serverQuery.serverId);
+
+  const { data, error, isLoading } = useRoomMessages();
 
   const socketUrl = roomId
     ? `ws://127.0.0.1:8000/${serverId}/${roomId}/`
@@ -83,12 +72,7 @@ const Message = ({
 
   return (
     <>
-      <MessageBody
-        roomName={roomName}
-        newMessage={newMessage}
-        serverQuery={serverQuery}
-        onSelectRoom={onSelectRoom}
-      />
+      <MessageBody newMessage={newMessage} />
       <MessageForm
         message={message}
         onChange={handleMessageChange}

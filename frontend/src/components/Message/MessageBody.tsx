@@ -2,7 +2,6 @@ import {
   Avatar,
   Box,
   Drawer,
-  DrawerBody,
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
@@ -19,26 +18,18 @@ import {
 import { Icon } from "@chakra-ui/icons";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { MessageType } from "../../entities/MessageType.ts";
-import ServerRoomList from "../ServerRoomList.tsx";
-import { Room } from "../../entities/Room.ts";
-import { useState } from "react";
-import { ServerQuery } from "../../pages/HomePage.tsx";
 import useServers from "../../hooks/useServers.ts";
+import useServerQueryStore from "../../store.ts";
 
 interface Props {
-  roomName: string;
   newMessage: MessageType[];
-  serverQuery: ServerQuery;
-  onSelectRoom: (id: number, name: string) => void;
 }
-const MessageBody = ({
-  roomName,
-  newMessage,
-  serverQuery,
-  onSelectRoom,
-}: Props) => {
+const MessageBody = ({ newMessage }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data, error, isLoading } = useServers(serverQuery);
+  const { data } = useServers();
+
+  const setRoom = useServerQueryStore((s) => s.setRoom);
+  const selectedRoomName = useServerQueryStore((s) => s.serverQuery.roomName);
 
   const serverRooms = data?.flatMap((server) => server.room_server);
   const formatDate = (timestamp: string) => {
@@ -50,7 +41,7 @@ const MessageBody = ({
     <div>
       <Flex alignItems={"center"} justifyContent="space-between" padding={2}>
         <Heading as="h3" size="md">
-          {roomName}
+          {selectedRoomName}
         </Heading>
         <Icon
           display={{ lg: "none" }}
@@ -66,7 +57,7 @@ const MessageBody = ({
           <List>
             {serverRooms?.map((room) => (
               <ListItem key={room.id}>
-                <Link onClick={() => onSelectRoom(room.id, room.name)}>
+                <Link onClick={() => setRoom(room.id, room.name)}>
                   {room.name}
                 </Link>{" "}
               </ListItem>

@@ -2,18 +2,17 @@ import { Box, Heading, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import RoomCardContainer from "./RoomCardContainer.tsx";
 import RoomCard from "./RoomCard.tsx";
 import useServers from "../hooks/useServers.ts";
-import { ServerQuery } from "../pages/HomePage.tsx";
+import useServerQueryStore from "../store.ts";
 
-interface Props {
-  serverQuery: ServerQuery;
-}
-const RoomGrid = ({ serverQuery }: Props) => {
-  const { data, error, isLoading } = useServers(serverQuery);
+const RoomGrid = () => {
+  const { data, error, isLoading } = useServers();
+  const selectedCategory = useServerQueryStore((s) => s.serverQuery.category);
+  const selectedServerId = useServerQueryStore((s) => s.serverQuery);
 
   if (error) return null;
   if (isLoading) return <Spinner />;
 
-  if (serverQuery.serverId) {
+  if (selectedServerId?.serverId) {
     return (
       <Box padding="10px">
         {data && data.length > 0 && (
@@ -30,10 +29,10 @@ const RoomGrid = ({ serverQuery }: Props) => {
     return (
       <Box padding="10px">
         <Heading fontSize="2xl" justifyContent="center" textAlign="center">
-          {serverQuery.category ? serverQuery.category : "Popular Servers"}
-          {serverQuery.category && (
+          {selectedCategory ? selectedCategory : "Popular Servers"}
+          {selectedServerId?.category && (
             <Text fontSize="md" color="gray.500">
-              Channels talking about {serverQuery.category}
+              Channels talking about {selectedCategory}
             </Text>
           )}
         </Heading>

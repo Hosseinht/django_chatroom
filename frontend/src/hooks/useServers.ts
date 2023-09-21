@@ -1,14 +1,15 @@
 import APIClient from "../services/api-client.ts";
 import ms from "ms";
 import { useQuery } from "@tanstack/react-query";
-import { ServerQuery } from "../pages/HomePage.tsx";
 import { AxiosRequestConfig } from "axios";
 import { Server } from "../entities/Server";
+import useServerQueryStore from "../store.ts";
 
 const apiClient = new APIClient<Server[]>("/server/select");
 
-const useServers = (serverQuery: ServerQuery) =>
-  useQuery({
+const useServers = () => {
+  const serverQuery = useServerQueryStore((s) => s.serverQuery);
+  return useQuery({
     queryKey: ["servers", serverQuery],
     queryFn: () => {
       const config: AxiosRequestConfig = {
@@ -23,5 +24,6 @@ const useServers = (serverQuery: ServerQuery) =>
     //  the endpoint will be "/server/select".
     staleTime: ms("24h"),
   });
+};
 
 export default useServers;
