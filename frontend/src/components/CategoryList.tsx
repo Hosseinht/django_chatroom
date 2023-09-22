@@ -6,7 +6,7 @@ import useServerQueryStore from "../store.ts";
 
 const CategoryList = () => {
   const { data, error, isLoading } = useCategories();
-  const setCategory = useServerQueryStore((s) => s.setCategory);
+  const setCategoryName = useServerQueryStore((s) => s.setCategoryName);
 
   if (error) return null;
   if (isLoading) return <Spinner />;
@@ -20,7 +20,10 @@ const CategoryList = () => {
         <HStack padding={2} key={category.id}>
           <Icon as={MdOutlineSportsSoccer} />
 
-          <Link onClick={() => setCategory(category.name)} fontWeight="bold">
+          <Link
+            onClick={() => setCategoryName(category.name)}
+            fontWeight="bold"
+          >
             {category.name}
           </Link>
         </HStack>

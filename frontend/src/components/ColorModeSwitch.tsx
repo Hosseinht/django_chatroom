@@ -1,14 +1,19 @@
-import { Box, Switch, useColorMode } from "@chakra-ui/react";
+import { Box, Button, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 const ColorModeSwitch = () => {
   const { toggleColorMode, colorMode } = useColorMode();
   return (
     <Box padding={2}>
-      <Switch
-        colorScheme="green"
-        isChecked={colorMode === "dark"}
-        onChange={toggleColorMode}
-      />
+      <Button
+        onClick={toggleColorMode}
+        bg={useColorModeValue("white", "gray.700")}
+        _hover={{
+          textDecoration: "none",
+        }}
+      >
+        {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+      </Button>
     </Box>
   );
 };

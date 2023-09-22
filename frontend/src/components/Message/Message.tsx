@@ -2,7 +2,7 @@ import useWebSocket from "react-use-websocket";
 import React, { useEffect, useState } from "react";
 import useRoomMessages from "../../hooks/useRoomMessages.ts";
 import { MessageType } from "../../entities/MessageType.ts";
-import { Spinner } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import MessageBody from "./MessageBody.tsx";
 import MessageForm from "./MessageForm.tsx";
 import useServerQueryStore from "../../store.ts";
@@ -58,7 +58,7 @@ const Message = () => {
     }
   }, [data, isLoading]);
 
-  const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     setMessage(e.target.value);
   };
@@ -71,14 +71,14 @@ const Message = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <>
+    <Box>
       <MessageBody newMessage={newMessage} />
       <MessageForm
         message={message}
         onChange={handleMessageChange}
         onSend={handleSendMessage}
       />
-    </>
+    </Box>
   );
 };
 

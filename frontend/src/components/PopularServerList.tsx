@@ -13,7 +13,6 @@ import useServerQueryStore from "../store.ts";
 const PopularServerList = () => {
   const { data, error, isLoading } = usePopularServers();
   const setServerId = useServerQueryStore((s) => s.setServerId);
-  const setCategory = useServerQueryStore((s) => s.setCategory);
 
   if (error) return null;
   if (isLoading) return <Spinner />;
@@ -31,7 +30,6 @@ const PopularServerList = () => {
               fontWeight="bold"
               onClick={() => {
                 setServerId(server.id);
-                setCategory("");
               }}
             >
               <Link>{server.name}</Link>{" "}

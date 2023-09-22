@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid } from "@chakra-ui/react";
 import RoomGrid from "../components/RoomGrid.tsx";
 import PopularServerList from "../components/PopularServerList.tsx";
 import CategoryList from "../components/CategoryList.tsx";
@@ -30,15 +30,16 @@ const HomePage = () => {
       gridTemplateColumns={{
         base: "100%",
         md: "100%",
-        lg: "250px 250px 1fr",
+        lg: `250px 250px 1fr`,
       }}
       gridTemplateRows={{
         base: "700px",
-        md: "10px 700px ",
+        md: "10px 88vh ",
       }}
       gridTemplateAreas={gridTemplateAreas}
       gap={2}
-      // padding={2}
+      padding={2}
+      overflow="hidden"
     >
       <Box
         gridArea="popular"
@@ -54,14 +55,15 @@ const HomePage = () => {
       >
         {selectedServerId ? <ServerRoomList /> : <CategoryList />}
       </Box>
+
       {selectedRoomId ? (
-        <GridItem gridArea="message" shadow="lg">
+        <Box gridArea="message" shadow="lg" pos="relative">
           <Message />
-        </GridItem>
+        </Box>
       ) : (
-        <GridItem gridArea="room" shadow="lg">
+        <Box gridArea="room" shadow="lg">
           <RoomGrid />
-        </GridItem>
+        </Box>
       )}
     </Grid>
   );

@@ -1,24 +1,24 @@
 import { Card, CardBody, HStack, Text } from "@chakra-ui/react";
-import { Server } from "../entities/Server";
+import { Category } from "../hooks/useCategories.ts";
 import useServerQueryStore from "../store.ts";
 
 interface Props {
-  server: Server;
+  category: Category;
 }
-const RoomCard = ({ server }: Props) => {
-  const setServerId = useServerQueryStore((s) => s.setServerId);
+const RoomCard = ({ category }: Props) => {
+  const setCategoryName = useServerQueryStore((s) => s.setCategoryName);
   return (
     <>
       <Card
         onClick={() => {
-          setServerId(server.id);
+          setCategoryName(category.name);
         }}
       >
         {/*<Image src={getCroppedImageUrl(game.background_image)} />*/}
         <CardBody>
           <HStack justifyContent="space-between" marginBottom={3}>
-            <Text>{server.id}</Text>
-            <Text>{server.name}</Text>
+            <Text>{category.id}</Text>
+            <Text>{category.name}</Text>
           </HStack>
         </CardBody>
       </Card>

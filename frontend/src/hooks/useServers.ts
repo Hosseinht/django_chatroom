@@ -14,7 +14,7 @@ const useServers = () => {
     queryFn: () => {
       const config: AxiosRequestConfig = {
         params: {
-          category: serverQuery?.category || "",
+          category: serverQuery?.categoryName || "",
           by_serverid: serverQuery?.serverId || "",
         },
       };

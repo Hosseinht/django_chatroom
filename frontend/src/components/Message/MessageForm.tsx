@@ -1,20 +1,19 @@
 import React from "react";
-import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Textarea } from "@chakra-ui/react";
 
 interface Props {
   message: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onSend: () => void;
 }
 
 const MessageForm = ({ message, onSend, onChange }: Props) => {
   return (
-    <div>
+    <Box pos="absolute" bottom="0" padding={3} width="100%">
       <FormControl>
         <FormLabel>
-          <Input
+          <Textarea
             placeholder="Enter Message:"
-            type="text"
             value={message}
             onChange={onChange}
             onKeyDown={(e) => {
@@ -26,11 +25,7 @@ const MessageForm = ({ message, onSend, onChange }: Props) => {
           />
         </FormLabel>
       </FormControl>
-      <Button onClick={onSend}>
-        {/*It sends a JSON message to the server with a type of "message" and the message state as the content.*/}
-        Send Message
-      </Button>
-    </div>
+    </Box>
   );
 };
 
