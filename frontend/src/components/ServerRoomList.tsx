@@ -28,7 +28,13 @@ const ServerRoomList = () => {
         <List>
           {serverRooms?.map((room) => (
             <ListItem key={room.id}>
-              <Link onClick={() => setRoom(room.id, room.name)}>
+              <Link
+                onClick={() => setRoom(room.id, room.name)}
+                textTransform="capitalize"
+                _hover={{
+                  textDecoration: "none",
+                }}
+              >
                 {room.name}
               </Link>{" "}
             </ListItem>

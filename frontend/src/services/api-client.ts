@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
+import { Auth } from "../entities/Auth.ts";
 
 const axiosInstance = axios.create({
   baseURL: "http://127.0.0.1:8000/api",
@@ -21,6 +22,10 @@ class APIClient<T> {
 
   get = (config?: AxiosRequestConfig) => {
     return axiosInstance.get<T>(this.endpoint, config).then((res) => res.data);
+  };
+
+  post = (data: Auth) => {
+    return axiosInstance.post<T>(this.endpoint, data).then((res) => res.data);
   };
 }
 

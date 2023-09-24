@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Flex,
-  HStack,
   IconButton,
   Menu,
   MenuButton,
@@ -49,11 +48,11 @@ export default function Navbar() {
               textDecoration: "none",
             }}
           />
-          <HStack spacing={8} alignItems={"center"}>
+          <Box alignItems={"center"} fontWeight="bold">
             <Link to="/" onClick={handleServerOnClick}>
               ChatRoom
             </Link>
-          </HStack>
+          </Box>
           <Flex alignItems={"center"}>
             <Menu>
               <ColorModeSwitch />

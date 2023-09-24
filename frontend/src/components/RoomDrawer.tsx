@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Drawer,
   DrawerContent,
@@ -26,7 +25,7 @@ const RoomDrawer = () => {
   return (
     <>
       <Flex alignItems={"center"} justifyContent="space-between" padding={2}>
-        <Heading as="h3" size="md">
+        <Heading as="h3" size="md" textTransform="capitalize">
           {selectedRoomName}
         </Heading>
         <Icon

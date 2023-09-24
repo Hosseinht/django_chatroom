@@ -1,4 +1,11 @@
-import { Avatar, Box, HStack, Text, VStack } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  HStack,
+  Text,
+  useColorModeValue,
+  VStack,
+} from "@chakra-ui/react";
 import { MessageType } from "../../entities/MessageType.ts";
 import "../../main.css";
 import Scroll from "./Scroll.tsx";
@@ -30,11 +37,11 @@ const MessageBody = ({ newMessage }: Props) => {
                     alignItems="left"
                     spacing="3px"
                     width="550px"
-                    backgroundColor="blue.50"
                     borderRadius="10px"
                     border="1px "
                     borderColor="transparent"
                     padding={3}
+                    bg={useColorModeValue("blue.50", "gray.700")}
                   >
                     <Text fontWeight="700">{msg.sender}</Text>
                     <Text>{msg.content}</Text>
