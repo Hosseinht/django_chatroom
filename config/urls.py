@@ -7,11 +7,14 @@ from drf_spectacular.views import (
     SpectacularRedocView,
     SpectacularSwaggerView,
 )
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from apps.webchat.consumers import WebChatConsumer
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/server/", include("apps.server.urls")),
     path("api/messages/", include("apps.webchat.urls")),
     path("__debug__/", include("debug_toolbar.urls")),

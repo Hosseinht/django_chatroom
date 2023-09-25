@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router";
 import { useFormik } from "formik";
 import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
   Box,
   Button,
   Checkbox,
@@ -15,10 +18,11 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import useAuth from "../hooks/useAuth.ts";
+import { AxiosError } from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
-  const loginUser = useAuth();
+  const login = useAuth();
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -34,28 +38,16 @@ const Login = () => {
       }
       return errors;
     },
-    onSubmit: async (values) => {
+    onSubmit: (values) => {
       const { username, password } = values;
 
-      try {
-        const response = await loginUser.mutateAsync({
-          username: username,
-          password: password,
-        });
+      login.mutate({
+        username: username,
+        password: password,
+      });
 
-        // Handle successful login here, e.g., store tokens and navigate to a new page
-        console.log("Login successful:", response);
-        navigate("/"); // Navigate to the desired page
-      } catch (error) {
-        // Handle login error here, e.g., display an error message
-        console.error("Login error:", error);
-
-        if (error.response?.status === 401) {
-          formik.setErrors({
-            username: "Invalid username or password",
-            password: "Invalid username or password",
-          });
-        }
+      if (login.isSuccess) {
+        navigate("/");
       }
     },
   });
@@ -77,6 +69,13 @@ const Login = () => {
           boxShadow={"lg"}
           p={8}
         >
+          {login.error && (
+            <div>
+              <Alert status="error">
+                {(login.error as AxiosError<any>).response?.data.detail}
+              </Alert>
+            </div>
+          )}
           <form onSubmit={formik.handleSubmit}>
             <Stack spacing={4}>
               <FormControl
