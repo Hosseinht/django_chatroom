@@ -5,6 +5,7 @@ import { AxiosRequestConfig } from "axios";
 import { Server } from "../entities/Server";
 import useServerQueryStore from "../store.ts";
 
+
 const apiClient = new APIClient<Server[]>("/server/select");
 
 const useServers = () => {

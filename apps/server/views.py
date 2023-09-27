@@ -1,16 +1,14 @@
-from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count
-from rest_framework import generics, status
-from rest_framework.exceptions import AuthenticationFailed, ValidationError
+from django.db.models import Count
+from rest_framework import generics
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
-from apps.server.models import Server, Category
-from apps.server.schema import server_list_docs
-from apps.server.serializers import (
+from .models import Server, Category
+from .schema import server_list_docs
+from .serializers import (
     ServerDetailSerializer,
     CategorySerializer,
-    ServerListSerializer,
 )
 
 

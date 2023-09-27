@@ -2,8 +2,6 @@ import { useNavigate } from "react-router";
 import { useFormik } from "formik";
 import {
   Alert,
-  AlertIcon,
-  AlertTitle,
   Box,
   Button,
   Checkbox,
@@ -46,9 +44,7 @@ const Login = () => {
         password: password,
       });
 
-      if (login.isSuccess) {
-        navigate("/");
-      }
+      navigate("/");
     },
   });
 
