@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/icons";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import useServerQueryStore from "../store.ts";
+import useServerQueryStore from "../stores/serverStore.ts";
 import useServers from "../hooks/useServers.ts";
 
 const RoomDrawer = () => {

@@ -2,7 +2,7 @@ import { Box, Heading, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import RoomCardContainer from "./RoomCardContainer.tsx";
 import RoomCard from "./RoomCard.tsx";
 import useServers from "../hooks/useServers.ts";
-import useServerQueryStore from "../store.ts";
+import useServerQueryStore from "../stores/serverStore.ts";
 import useCategories from "../hooks/useCategories.ts";
 import CategoryCard from "./CategoryCard.tsx";
 import RoomDrawer from "./RoomDrawer.tsx";

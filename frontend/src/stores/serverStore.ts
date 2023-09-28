@@ -1,4 +1,5 @@
 import { create } from "zustand";
+
 interface ServerQuery {
   categoryName?: string;
   qty?: number;

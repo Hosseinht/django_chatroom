@@ -8,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import usePopularServers from "../hooks/usePopularServers.ts";
-import useServerQueryStore from "../store.ts";
+import useServerQueryStore from "../stores/serverStore.ts";
 
 const PopularServerList = () => {
   const { data, error, isLoading } = usePopularServers();

@@ -2,7 +2,7 @@ import { Box, Heading, HStack, Link, Spinner } from "@chakra-ui/react";
 import { MdOutlineSportsSoccer } from "react-icons/md";
 import { Icon } from "@chakra-ui/icons";
 import useCategories from "../hooks/useCategories.ts";
-import useServerQueryStore from "../store.ts";
+import useServerQueryStore from "../stores/serverStore.ts";
 
 const CategoryList = () => {
   const { data, error, isLoading } = useCategories();

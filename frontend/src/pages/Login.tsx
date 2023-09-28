@@ -21,6 +21,7 @@ import { AxiosError } from "axios";
 const Login = () => {
   const navigate = useNavigate();
   const login = useAuth();
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -44,10 +45,11 @@ const Login = () => {
         password: password,
       });
 
+      localStorage.setItem("isLoggedIn", "true");
+
       navigate("/");
     },
   });
-
   return (
     <Flex
       minH={"100vh"}

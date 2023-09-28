@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import ColorModeSwitch from "./ColorModeSwitch";
-import useServerQueryStore from "../store.ts";
+import useServerQueryStore from "../stores/serverStore.ts";
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();

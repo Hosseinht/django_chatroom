@@ -1,6 +1,6 @@
 import { Card, CardBody, HStack, Text } from "@chakra-ui/react";
 import { Category } from "../hooks/useCategories.ts";
-import useServerQueryStore from "../store.ts";
+import useServerQueryStore from "../stores/serverStore.ts";
 
 interface Props {
   category: Category;

@@ -5,7 +5,7 @@ import { MessageType } from "../../entities/MessageType.ts";
 import { Box, Spinner } from "@chakra-ui/react";
 import MessageBody from "./MessageBody.tsx";
 import MessageForm from "./MessageForm.tsx";
-import useServerQueryStore from "../../store.ts";
+import useServerQueryStore from "../../stores/serverStore.ts";
 
 const Message = () => {
   const [newMessage, setNewMessage] = useState<MessageType[]>([]);

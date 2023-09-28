@@ -1,6 +1,6 @@
 import { Card, CardBody, HStack, Text } from "@chakra-ui/react";
 import { Server } from "../entities/Server";
-import useServerQueryStore from "../store.ts";
+import useServerQueryStore from "../stores/serverStore.ts";
 
 interface Props {
   server: Server;

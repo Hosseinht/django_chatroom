@@ -8,7 +8,7 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import useServers from "../hooks/useServers.ts";
-import useServerQueryStore from "../store.ts";
+import useServerQueryStore from "../stores/serverStore.ts";
 
 const ServerRoomList = () => {
   const { data, error, isLoading } = useServers();

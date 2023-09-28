@@ -4,7 +4,7 @@ import PopularServerList from "../components/PopularServerList.tsx";
 import CategoryList from "../components/CategoryList.tsx";
 import ServerRoomList from "../components/ServerRoomList.tsx";
 import Message from "../components/Message/Message.tsx";
-import useServerQueryStore from "../store.ts";
+import useServerQueryStore from "../stores/serverStore.ts";
 
 const gridTemplateAreasWithMain1 = {
   base: `'message'`,

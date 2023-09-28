@@ -3,8 +3,7 @@ import ms from "ms";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosRequestConfig } from "axios";
 import { Server } from "../entities/Server";
-import useServerQueryStore from "../store.ts";
-
+import useServerQueryStore from "../stores/serverStore.ts";
 
 const apiClient = new APIClient<Server[]>("/server/select");
 
