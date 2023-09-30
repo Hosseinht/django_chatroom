@@ -37,19 +37,21 @@ const Login = () => {
       }
       return errors;
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const { username, password } = values;
 
-      login.mutate({
+      const response = await login.mutateAsync({
         username: username,
         password: password,
       });
 
-      localStorage.setItem("isLoggedIn", "true");
-
-      navigate("/");
+      if (response) {
+        localStorage.setItem("isLoggedIn", "true");
+        navigate("/");
+      }
     },
   });
+
   return (
     <Flex
       minH={"100vh"}

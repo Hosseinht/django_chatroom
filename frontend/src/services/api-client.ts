@@ -19,12 +19,16 @@ class APIClient<T> {
     return axiosInstance.get<T>(this.endpoint).then((res) => res.data);
   };
 
-  get = (config?: AxiosRequestConfig) => {
-    return axiosInstance.get<T>(this.endpoint, config).then((res) => res.data);
+  get = () => {
+    return axiosInstance
+      .get<T>(this.endpoint, { withCredentials: true })
+      .then((res) => res.data);
   };
 
   post = (data: T) => {
-    return axiosInstance.post<T>(this.endpoint, data).then((res) => res.data);
+    return axiosInstance
+      .post<T>(this.endpoint, data, { withCredentials: true })
+      .then((res) => res.data);
   };
 }
 
