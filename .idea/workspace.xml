@@ -5,18 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28b026c3-1b6f-4c30-bbd3-cc84cae5cb68" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/30340dff-0034-41da-b35e-282035d47c33.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/django_chatroom.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/django_chatroom.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/server/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/server/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings/production.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/production.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useServers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useServers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useAuth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useUser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useUser.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/services/api-client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/api-client.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,6 +116,8 @@
       <workItem from="1695718377704" duration="9078000" />
       <workItem from="1695735817800" duration="319000" />
       <workItem from="1695736403900" duration="529000" />
+      <workItem from="1696139947131" duration="2563000" />
+      <workItem from="1696142796931" duration="1202000" />
     </task>
     <servers />
   </component>

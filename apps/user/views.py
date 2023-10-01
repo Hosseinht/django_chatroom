@@ -30,6 +30,7 @@ class UserRetrieveView(APIView):
 
 
 class JWTSetCookieMixin:
+    #  ensures that the generated JWT tokens are sent to the client as cookies
     def finalize_response(self, request, response, *args, **kwargs):
         if response.data.get("refresh"):
             response.set_cookie(
@@ -48,6 +49,7 @@ class JWTSetCookieMixin:
                 httponly=True,
                 samesite=settings.SIMPLE_JWT["JWT_COOKIE_SAMESITE"],
             )
+            del response.data["access"]
 
         return super().finalize_response(request, response, *args, **kwargs)
 
