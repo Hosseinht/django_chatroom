@@ -7,7 +7,11 @@ from rest_framework.views import APIView
 
 from .models import User
 from .schemas import user_list_docs
-from .serializers import UserSerializer
+from .serializers import (
+    UserSerializer,
+    CustomTokenObtainPairSerializer,
+    CustomTokenRefreshSerializer,
+)
 
 
 class UserRetrieveView(APIView):
@@ -55,4 +59,8 @@ class JWTSetCookieMixin:
 
 
 class JWTCookieTokenObtainPairView(JWTSetCookieMixin, TokenObtainPairView):
-    pass
+    serializer_class = CustomTokenObtainPairSerializer
+
+
+class JWTCookieTokenRefreshView(JWTSetCookieMixin, TokenRefreshView):
+    serializer_class = CustomTokenRefreshSerializer
