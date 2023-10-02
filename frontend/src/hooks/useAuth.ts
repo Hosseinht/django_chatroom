@@ -10,6 +10,10 @@ const useAuth = () => {
     // Auth(TData): data that we get from the backend. Error(TError): error object.
     // Auth(TVariable): The data that we send to the backend
     mutationFn: (user: Auth) => apiClient.post(user),
+    onSuccess: (savedUser) => {
+      const userId = savedUser?.user_id;
+      if (userId) localStorage.setItem("userId", userId.toString());
+    },
   });
 };
 

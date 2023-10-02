@@ -15,8 +15,6 @@ const User = () => {
 
   if (error) return (error as AxiosError).message;
   const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
     localStorage.removeItem("userId");
     localStorage.setItem("isLoggedIn", "false");
     navigate("/");

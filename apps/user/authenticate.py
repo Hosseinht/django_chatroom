@@ -11,5 +11,5 @@ class JWTCookieAuthentication(JWTAuthentication):
         if raw_token is None:
             return None
 
-        validate_token = self.get_validated_token(raw_token)
-        return self.get_user(validate_token), validate_token
+        validated_token = self.get_validated_token(raw_token)
+        return self.get_user(validated_token), validated_token

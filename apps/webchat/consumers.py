@@ -6,9 +6,9 @@ from .models import Conversation, Message
 
 User = get_user_model()
 
+
 # Define a WebSocket consumer class
 class WebChatConsumer(JsonWebsocketConsumer):
-
     # Initialize the consumer and set the default room name
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -17,8 +17,14 @@ class WebChatConsumer(JsonWebsocketConsumer):
 
     # Method called when a client connects to the WebSocket
     def connect(self):
-        # Accept the WebSocket connection
+        # authenticated the user
+        self.user = self.scope["user"]
         self.accept()
+
+        if not self.user.is_authenticated:
+            self.close(code=4001)
+
+        # Accept the WebSocket connection
 
         self.room_id = self.scope["url_route"]["kwargs"]["roomId"]
 

@@ -33,8 +33,11 @@ const Message = () => {
       }
       console.log("connected");
     },
-    onClose: () => {
-      console.log("closed");
+    onClose: (event:CloseEvent) => {
+      if(event.code == 4001){
+        console.log("Authentication Error")
+      }
+      console.log("Close")
     },
     onError: () => {
       console.log("Error");

@@ -10,7 +10,7 @@ from drf_spectacular.views import (
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from apps.webchat.consumers import WebChatConsumer
-from apps.user.views import JWTCookieTokenObtainPairView
+from apps.user.views import JWTCookieTokenObtainPairView, JWTCookieTokenRefreshView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -20,7 +20,9 @@ urlpatterns = [
     path(
         "api/token/", JWTCookieTokenObtainPairView.as_view(), name="token_obtain_pair"
     ),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path(
+        "api/token/refresh/", JWTCookieTokenRefreshView.as_view(), name="token_refresh"
+    ),
     path("__debug__/", include("debug_toolbar.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
