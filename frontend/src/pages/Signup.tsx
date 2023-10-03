@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Flex,
   Box,
@@ -7,7 +5,6 @@ import {
   FormLabel,
   Input,
   InputGroup,
-  HStack,
   InputRightElement,
   Stack,
   Button,
@@ -16,13 +13,25 @@ import {
   useColorModeValue,
   Link,
   FormErrorMessage,
+  Alert,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useFormik } from "formik";
+import { useNavigate } from "react-router";
+import useRegister from "../hooks/useRegister.ts";
+import useAuthQueryStore from "../stores/authStore.ts";
+import { Navigate } from "react-router-dom";
+import { AxiosError } from "axios";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const register = useRegister();
+  const fetchIsLoggedIn = useAuthQueryStore((s) => s.authQuery.isLoggedIn);
+
+  if (fetchIsLoggedIn) return <Navigate to="/" />;
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -41,10 +50,17 @@ const Signup = () => {
     onSubmit: async (values) => {
       const { username, password } = values;
 
-      console.log(username, password);
+      const response = await register.mutateAsync({
+        username: username,
+        password: password,
+      });
+
+      if (response) {
+        navigate("/login");
+      }
     },
   });
-
+  console.log(register.error);
   return (
     <Flex
       minH={"100vh"}
@@ -63,6 +79,13 @@ const Signup = () => {
           boxShadow={"lg"}
           p={8}
         >
+          {register.error && (
+            <div>
+              <Alert status="error">
+                {(register.error as AxiosError<any>).response?.data.username}
+              </Alert>
+            </div>
+          )}
           <form onSubmit={formik.handleSubmit}>
             <Stack spacing={4}>
               <FormControl

@@ -9,9 +9,29 @@ from .models import User
 from .schemas import user_list_docs
 from .serializers import (
     UserSerializer,
+    RegisterSerializer,
     CustomTokenObtainPairSerializer,
     CustomTokenRefreshSerializer,
 )
+
+
+class RegisterView(APIView):
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+
+        if serializer.is_valid():
+            username = serializer.validated_data["username"]
+            forbidden_usernames = ["Jamshid", "Ghanbar", "Hajar"]
+
+            if username in forbidden_usernames:
+                return Response(
+                    {"detail": "Username not allowed"}, status=status.HTTP_409_CONFLICT
+                )
+
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LogoutAPIView(APIView):

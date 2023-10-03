@@ -9,6 +9,15 @@ from rest_framework_simplejwt.serializers import (
 from .models import User
 
 
+class RegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["username", "password"]
+        extra_kwargs = {
+            "password": {"write_only": True},
+        }
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
