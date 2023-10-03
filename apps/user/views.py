@@ -14,6 +14,16 @@ from .serializers import (
 )
 
 
+class LogoutAPIView(APIView):
+    def post(self, request, format=None):
+        response = Response("Logged out successfully")
+
+        response.set_cookie("refresh_token", "", expires=0)
+        response.set_cookie("access_token", "", expires=0)
+
+        return response
+
+
 class UserRetrieveView(APIView):
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
