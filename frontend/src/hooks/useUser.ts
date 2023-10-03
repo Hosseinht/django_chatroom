@@ -3,10 +3,14 @@ import APIClient from "../services/api-client.ts";
 import { User } from "../entities/User.ts";
 import { AxiosError, AxiosRequestConfig } from "axios";
 import useRefreshToken from "./useRefreshToken.ts";
+import useAuthQueryStore from "../stores/authStore.ts";
+import { useNavigate } from "react-router";
 
 const apiClient = new APIClient<User>("/user/");
 
 const useUser = () => {
+  const fetchIsLoggedIn = useAuthQueryStore((s) => s.authQuery.isLoggedIn);
+  const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const refreshTokenMutation = useRefreshToken();
   return useQuery({
@@ -20,6 +24,9 @@ const useUser = () => {
       try {
         return await apiClient.get(config);
       } catch (error) {
+        if (!fetchIsLoggedIn) {
+          navigate("/login");
+        }
         if (
           (error as AxiosError).response &&
           (error as AxiosError).response?.status === 401

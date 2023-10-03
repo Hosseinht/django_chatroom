@@ -1,17 +1,11 @@
-import { Button, Spinner } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import useUser from "../hooks/useUser.ts";
-import { Navigate, useNavigate } from "react-router";
-import useAuthQueryStore from "../stores/authStore.ts";
+import { useNavigate } from "react-router";
 import { AxiosError } from "axios";
 
 const User = () => {
   const navigate = useNavigate();
-  const { data, error, isLoading } = useUser();
-  const fetchIsLoggedIn = useAuthQueryStore((s) => s.authQuery.isLoggedIn);
-
-  if (!fetchIsLoggedIn) return <Navigate to="/login" />;
-
-  if (isLoading) return <Spinner />;
+  const { data, error } = useUser();
 
   if (error) return (error as AxiosError).message;
   const handleLogout = () => {

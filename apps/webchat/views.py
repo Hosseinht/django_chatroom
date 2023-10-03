@@ -9,7 +9,7 @@ from .schemas import message_list_docs
 
 
 class MessageListAPIView(APIView):
-    queryset = Message.objects.select_related("sender").all()
+    queryset = Message.objects.select_related("sender").all().order_by("timestamp")
 
     @message_list_docs
     def get(self, request, *args, **kwargs):
