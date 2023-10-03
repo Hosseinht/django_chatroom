@@ -4,6 +4,7 @@ import Layout from "./pages/Layout.tsx";
 import Login from "./pages/Login.tsx";
 import User from "./pages/User.tsx";
 import PrivateRoute from "./components/PrivateRoute.tsx";
+import Signup from "./pages/Signup.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    children: [{ path: "login", element: <Login /> }],
+    children: [
+      { path: "login", element: <Login /> },
+      { path: "signup", element: <Signup /> },
+    ],
   },
 ]);
 
