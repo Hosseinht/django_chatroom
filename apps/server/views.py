@@ -1,15 +1,15 @@
 from django.db.models import Count
-from django.db.models import Count
-from rest_framework import generics
+from django.shortcuts import get_object_or_404
+from rest_framework import generics, status
 from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from .models import Server, Category
+
+from .models import Category, Server
 from .schema import server_list_docs
-from .serializers import (
-    ServerDetailSerializer,
-    CategorySerializer,
-)
+from .serializers import CategorySerializer, ServerSerializer
 
 
 class CategoryListView(generics.ListAPIView):
@@ -121,7 +121,9 @@ class ServerListAPIView(generics.ListAPIView):
             except ValueError:
                 raise ValidationError(detail="Server value error")
 
-        serializer = ServerDetailSerializer(
-            queryset, many=True, context={"num_members": num_members}
+        serializer = ServerSerializer(
+            queryset,
+            many=True,
+            context={"request": request, "num_members": num_members},
         )
         return Response(serializer.data)

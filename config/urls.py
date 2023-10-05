@@ -12,6 +12,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from apps.webchat.consumers import WebChatConsumer
 from apps.user.views import JWTCookieTokenObtainPairView, JWTCookieTokenRefreshView
 
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/user/", include("apps.user.urls")),

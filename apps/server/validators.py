@@ -1,7 +1,8 @@
 import os
+
 import magic
-from PIL import Image
 from django.core.exceptions import ValidationError
+from PIL import Image
 
 
 def validate_image_file_type(file):

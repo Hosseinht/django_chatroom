@@ -6,19 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="28b026c3-1b6f-4c30-bbd3-cc84cae5cb68" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/authenticate.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/authenticate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/webchat/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/webchat/consumers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/asgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/server/migrations/0005_room_banner_room_icon.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/server/migrations/0005_room_banner_room_icon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/server/migrations/0006_alter_category_options_remove_room_banner_and_more.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/server/migrations/0006_alter_category_options_remove_room_banner_and_more.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/server/schema.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/server/schema.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/server/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/server/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/server/validators.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/server/validators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/server/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/server/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/entities/Auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/entities/Auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useAuth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useRefreshToken.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useRefreshToken.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useUser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useUser.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/User.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/User.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/router.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/router.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/services/api-client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/api-client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/RoomCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/RoomCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/entities/Server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/entities/Server.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,6 +126,7 @@
       <workItem from="1696146548313" duration="1278000" />
       <workItem from="1696223473770" duration="6000" />
       <workItem from="1696247591462" duration="6903000" />
+      <workItem from="1696488284550" duration="1012000" />
     </task>
     <servers />
   </component>

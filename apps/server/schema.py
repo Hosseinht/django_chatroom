@@ -1,10 +1,10 @@
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 
-from .serializers import RoomSerializer, ServerListSerializer
+from .serializers import RoomSerializer, ServerSerializer
 
 server_list_docs = extend_schema(
-    responses=ServerListSerializer(many=True),
+    responses=ServerSerializer(many=True),
     parameters=[
         OpenApiParameter(
             name="category",

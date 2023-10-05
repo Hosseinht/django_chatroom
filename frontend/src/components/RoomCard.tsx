@@ -1,4 +1,4 @@
-import { Card, CardBody, HStack, Text } from "@chakra-ui/react";
+import { Card, CardBody, Image, Text, VStack } from "@chakra-ui/react";
 import { Server } from "../entities/Server";
 import useServerQueryStore from "../stores/serverStore.ts";
 
@@ -15,11 +15,11 @@ const RoomCard = ({ server }: Props) => {
         }}
       >
         {/*<Image src={getCroppedImageUrl(game.background_image)} />*/}
-        <CardBody>
-          <HStack justifyContent="space-between" marginBottom={3}>
-            <Text>{server.id}</Text>
+        <CardBody borderRadius="lg">
+          <VStack justifyContent="space-between" marginBottom={3}>
+            <Image borderRadius="lg" src={server.banner} />
             <Text>{server.name}</Text>
-          </HStack>
+          </VStack>
         </CardBody>
       </Card>
     </>
